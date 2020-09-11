@@ -1,0 +1,47 @@
+body {
+	text-align: justify;
+}
+
+.profile-photo img {
+  border-radius: 50%;
+  transition: opacity 2s;
+}
+
+.profile-photo img:hover {
+  opacity: 0.6;
+  transition: 2s;
+}
+
+.card {
+  transition: 1s;
+}
+.card:hover {
+  box-shadow: 0 0 5px 5px #89cff0;
+  opacity: 0.9;
+  transition: 1s;
+}
+/* Navbar hide on scroll down, show on scroll up */
+.container {
+	margin-top: 65px;
+}
+.navbar {
+    transition: top 0.5s ease;
+}
+
+.navbar-hide {
+    top: -65px;
+}
+
+.navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+}
+
+.navbar-nav > li {
+    display: inline-block;
+    float:none;
+	padding-left: 2em;
+	padding-right: 2em;
+}
