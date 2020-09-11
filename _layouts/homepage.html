@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<div class="container-fluid">
+<div class="row p-3">
+
+	<div class="container-sidebar col-sm-2 col-md-2 text-center p-3">
+		<div class="profile-photo"><img src="/assets/author.png"></img></div>
+		<div><p>Info about the author.</p></div>
+		<div class="social-links">
+		{% if site.social.facebook %}	<a href="https://facebook.com/{{ site.social.facebook }}" target="_blank"><i class="btn btn-light fab fa-facebook-f fa-3x" ></i></a></br> {% endif %}
+		{% if site.social.twitter %}	<a href="https://twitter.com/{{ site.social.twitter }}" target="_blank"><i class="btn btn-light fab fa-twitter fa-3x" ></i></a></br> {% endif %}
+		{% if site.social.github %}	<a href="https://github.com/{{ site.social.github }}" target="_blank"><i class="btn btn-light fab fa-github-alt fa-3x" ></i></a></br> {% endif %}
+		{% if site.social.email %}	<a href="mailto:{{ site.social.email }}"><i class="btn btn-light fas fa-envelope-open-text fa-3x" ></i></a></br> {% endif %}
+		{% if site.social.linkedin %}	<a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank"><i class="btn btn-light fab fa-linkedin-in fa-3x"></i></a></br> {% endif %}
+		</div>
+		<div class="tags"></div>
+	</div>
+
+	<div class="container-posts col-sm-8 col-md-8">		
+		<div class="row">		
+		{% for post in site.posts %}
+			<div class="col-sm-4 col-md-4 pt-3 pb-3">
+				<div class="card">
+				<img class="card-img-top" src="/assets/placeholder.jpg" alt="Card image">
+				<div class="card-body">
+					<h4 class="card-title">{{ post.title }}</h4>
+					<p class="card-date">{{ post.date  | date: '%d. %B, %Y' }}</p>
+					<p class="card-text">
+					{% if post.summary %} {{ post.summary | truncatewords: 50 }}
+					{% else %}{{ post.content | strip_html | remove_first: post.title | truncatewords: 50 }}
+					{% endif %}</p>
+					
+					<a href="{{ post.url }}" class="stretched-link">Read more</a>
+				</div>
+				</div>
+			</div>
+		{% endfor %}  
+		</div>
+	</div>
+</div>
+</div>
