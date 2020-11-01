@@ -2,6 +2,7 @@
 published: true
 title: Initial design
 layout: post
+ribbon-text: Golang
 tags: 
   - nodejs
   - scraping
