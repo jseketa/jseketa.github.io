@@ -1,0 +1,39 @@
+<!-- Sidebar  -->
+
+	<nav id="sidebar">
+	    <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-eye"></i>
+        </button>
+		
+		<div class="sidebar-header">
+			<div class="profile-photo"><a href="{{ site.url }}" class="home"><img src="/assets/author.png"></img></a></div>
+		</div>
+
+		<ul class="list-unstyled components">
+			{% include social.html %}
+			<li>
+				<a href="#">About</a>
+			</li>
+			<li>
+				<a href="#">Portfolio</a>
+			</li>
+			<li>
+				<a href="#">Contact</a>
+			</li>
+		</ul>
+    		<p class="qr-current">Read me on your phone:</p>
+			<center><canvas id="qr"></canvas></center>
+	</nav>
+	
+		
+	<script>
+	(function() {
+		var qr = new QRious({
+		element: document.getElementById('qr'),
+		value: '{{ site.url }}{{ page.url }}',
+		backgroundAlpha: 0,
+		padding: 0,
+		size: 200,
+		});
+	})();
+	</script>

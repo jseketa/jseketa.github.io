@@ -2,42 +2,33 @@
 layout: default
 ---
 
-<div class="container-fluid">
-<div class="row p-3">
-
-	<div class="container-sidebar col-md-2 text-center p-3">
-		<div class="profile-photo"><img src="/assets/author.png"></img></div>
-		<div><p>Info about the author.</p></div>
-		<div class="social-links">
-		{% if site.social.facebook %}	<a href="https://facebook.com/{{ site.social.facebook }}" target="_blank"><i class="btn btn-light fab fa-facebook-f fa-3x" ></i></a></br> {% endif %}
-		{% if site.social.twitter %}	<a href="https://twitter.com/{{ site.social.twitter }}" target="_blank"><i class="btn btn-light fab fa-twitter fa-3x" ></i></a></br> {% endif %}
-		{% if site.social.github %}	<a href="https://github.com/{{ site.social.github }}" target="_blank"><i class="btn btn-light fab fa-github-alt fa-3x" ></i></a></br> {% endif %}
-		{% if site.social.email %}	<a href="mailto:{{ site.social.email }}"><i class="btn btn-light fas fa-envelope-open-text fa-3x" ></i></a></br> {% endif %}
-		{% if site.social.linkedin %}	<a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank"><i class="btn btn-light fab fa-linkedin-in fa-3x"></i></a></br> {% endif %}
-		</div>
-		<div class="tags"></div>
-	</div>
-
-	<div class="container-posts col-sm-8 col-md-8">		
-		<div class="row">		
-		{% for post in site.posts %}
-			<div class="col-sm-6 col-md-4 pt-3 pb-3">
-				<div class="card">
-				<img class="card-img-top" src="/assets/placeholder.jpg" alt="Card image">
-				<div class="card-body">
-					<h4 class="card-title">{{ post.title }}</h4>
-					<p class="card-date">{{ post.date  | date: '%d. %B, %Y' }}</p>
-					<p class="card-text">
-					{% if post.summary %} {{ post.summary | truncatewords: 50 }}
-					{% else %}{{ post.content | strip_html | remove_first: post.title | truncatewords: 50 }}
-					{% endif %}</p>
-					
-					<a href="{{ post.url }}" class="stretched-link">Read more</a>
-				</div>
-				</div>
-			</div>
-		{% endfor %}  
-		</div>
-	</div>
+<div class="wrapper">
+	{% include sidebar.html %}
+	{% include content.html %}	
 </div>
-</div>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#sidebar").mCustomScrollbar({
+			theme: "minimal"
+		});
+
+		$('#sidebarCollapse').on('click', function () {
+			$(this).find('.svg-inline--fa').toggleClass('fa-eye fa-eye-slash');
+			$('#sidebar, #content, #sidebarCollapse').toggleClass('active');
+			$('.collapse.in').toggleClass('in');
+			$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+		});
+	});
+    </script>
+

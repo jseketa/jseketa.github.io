@@ -1,0 +1,22 @@
+<div id="content">
+		<div class="row">		
+		{% for post in site.posts %}
+			<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3 pt-3 pb-3">
+				<div class="card">
+					{% if post.ribbon-text %}<div class="ribbon ribbon-top-left"><span>{{ post.ribbon-text }}</span></div>{% endif %}
+				<img class="card-img-top" src="/assets/placeholder.jpg" alt="Card image">
+				<div class="card-body">
+					<h4 class="card-title">{{ post.title }}</h4>
+					<p class="card-date">{{ post.date  | date: '%d. %B, %Y' }}</p>
+					<p class="card-text">
+					{% if post.summary %} {{ post.summary | truncatewords: 50 }}
+					{% else %}{{ post.content | strip_html | remove_first: post.title | truncatewords: 50 }}
+					{% endif %}</p>
+					
+					<a href="{{ post.url }}" class="stretched-link">Read more</a>
+				</div>
+				</div>
+			</div>
+		{% endfor %}  
+		</div>
+	</div>
