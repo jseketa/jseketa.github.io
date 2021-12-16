@@ -1,6 +1,7 @@
 ---
 published: true
 title: Setting it all up
+ribbon-text: STM32
 layout: post
 tags: 
   - STM32F103
