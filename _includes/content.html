@@ -9,7 +9,7 @@
 					<h4 class="card-title">{{ post.title }}</h4>
 					<p class="card-date">{{ post.date  | date: '%d. %B, %Y' }}</p>
 					<p class="card-text">
-					{% if post.summary %} {{ post.summary | truncatewords: 50 }}
+					{% if post.excerpt %} {{ post.excerpt | truncatewords: 50 }}
 					{% else %}{{ post.content | strip_html | remove_first: post.title | truncatewords: 50 }}
 					{% endif %}</p>
 					
