@@ -6,7 +6,7 @@ ribbon-text: Nodejs
 tags: 
   - nodejs
   - microservices
-excerpt: "Shorter excerpt"
+excerpt: "Documenting the microservice for listing the existing universes"
 ---
 
 # Microservices
