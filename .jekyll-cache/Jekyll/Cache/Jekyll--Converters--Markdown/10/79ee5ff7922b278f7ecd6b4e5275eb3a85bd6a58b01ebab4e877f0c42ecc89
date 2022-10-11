@@ -1,0 +1,90 @@
+I"ç <h1 id="microservices">Microservices</h1>
+
+<p>Checking if the universe exists with test cases and code coverage.</p>
+
+<p><strong>ROUTE:</strong> /universe/exists</p>
+
+<p><strong>METHOD:</strong> POST</p>
+
+<p><strong>NAME:</strong> Universe exists</p>
+
+<p><strong>PORT:</strong> 4000</p>
+
+<p><strong>Description:</strong></p>
+
+<ul>
+  <li>accepted arguments
+    <ul>
+      <li>name</li>
+      <li>language</li>
+    </ul>
+  </li>
+  <li>returns
+    <ul>
+      <li>if server exists return server data as json</li>
+      <li>if server does not exist return error message</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>ERRORS:</strong></p>
+
+<ul>
+  <li>server not reachable</li>
+  <li>server not found</li>
+</ul>
+
+<p>Example server data:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"ar"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"number"</span><span class="p">:</span><span class="mi">117</span><span class="p">,</span><span class="w">
+</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Quantum"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"playerCount"</span><span class="p">:</span><span class="mi">1005</span><span class="p">,</span><span class="w">
+</span><span class="nl">"playersOnline"</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span><span class="nl">"opened"</span><span class="p">:</span><span class="s2">"2016-05-06T11:15:08+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"startDate"</span><span class="p">:</span><span class="s2">"2016-05-06T11:15:08+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"endDate"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nl">"serverClosed"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"prefered"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"signupClosed"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"settings"</span><span class="p">:{</span><span class="w">
+	</span><span class="nl">"aks"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"fleetSpeed"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"wreckField"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"serverLabel"</span><span class="p">:</span><span class="s2">"empty"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"economySpeed"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"planetFields"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"universeSize"</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"serverCategory"</span><span class="p">:</span><span class="s2">"miner"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"espionageProbeRaids"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"premiumValidationGift"</span><span class="p">:</span><span class="mi">8000</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"debrisFieldFactorShips"</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"researchDurationDivisor"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"debrisFieldFactorDefence"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Allowing only the POST method in expressjs:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="dl">'</span><span class="s1">/universe/exists</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">queryObj</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+			<span class="na">language</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">language</span><span class="p">,</span>
+		<span class="p">};</span>
+
+		<span class="nx">universe</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">queryObj</span><span class="p">)</span>
+		<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">body</span><span class="p">));</span>	
+	<span class="p">};</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">]</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Only accepting Content-Type: application/json</span><span class="dl">'</span><span class="p">);</span>
+	<span class="p">};</span>
+	
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="dl">'</span><span class="s1">Access-Control-Allow-Methods</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">);</span>
+	<span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">405</span><span class="p">).</span><span class="nx">send</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+:ET
