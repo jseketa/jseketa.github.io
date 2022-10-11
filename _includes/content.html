@@ -4,7 +4,12 @@
 			<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3 pt-3 pb-3">
 				<div class="card">
 					{% if post.ribbon-text %}<div class="ribbon ribbon-top-left"><span>{{ post.ribbon-text }}</span></div>{% endif %}
-				<img class="card-img-top" src="/assets/placeholder.jpg" alt="Card image">
+					
+				{% if post.cover %}
+				<img class="card-img-top" src="{{ site.baseurl }}/assets/covers/{{ post.cover }}" alt="Card image">
+				{% else %}
+				<img class="card-img-top" src="{{ site.baseurl }}/assets/covers/placeholder.jpg" alt="Card image">
+				{% endif %}
 				<div class="card-body">
 					<h4 class="card-title">{{ post.title }}</h4>
 					<p class="card-date">{{ post.date  | date: '%d. %B, %Y' }}</p>

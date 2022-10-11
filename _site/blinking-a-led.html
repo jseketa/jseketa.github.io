@@ -1,0 +1,468 @@
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+	<!-- Site specific -->
+	<link href="http://localhost:4000/assets/css/main.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="http://localhost:4000/assets/js/script.js"></script>
+	<script type="text/javascript" src="http://localhost:4000/assets/js/qrious.min.js"></script>
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+	<title>Setting it all up</title>
+	
+</head>
+	<body>
+	<div class="wrapper">
+	<!-- Sidebar  -->
+
+	<nav id="sidebar">
+	    <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-eye"></i>
+        </button>
+		
+		<div class="sidebar-header">
+			<div class="profile-photo"><a href="http://localhost:4000" class="home"><img src="/assets/author.png"></img></a></div>
+		</div>
+
+		<ul class="list-unstyled components">
+			<div class="social-links">
+	<a href="https://facebook.com/jseketa" target="_blank"><i class="btn btn-light fab fa-facebook-f fa-3x"></i></a> 
+	<a href="https://twitter.com/jseketa" target="_blank"><i class="btn btn-light fab fa-twitter fa-3x"></i></a> 
+		<a href="https://github.com/jseketa" target="_blank"><i class="btn btn-light fab fa-github-alt fa-3x"></i></a> 
+	<a href="https://linkedin.com/in/jseketa" target="_blank"><i class="btn btn-light fab fa-linkedin-in fa-3x"></i></a> 
+</div>
+			<li>
+				<a href="#">About</a>
+			</li>
+			<li>
+				<a href="#">Portfolio</a>
+			</li>
+			<li>
+				<a href="#">Contact</a>
+			</li>
+		</ul>
+    		<p class="qr-current">Read me on your phone:</p>
+			<center><canvas id="qr"></canvas></center>
+	</nav>
+	
+		
+	<script>
+	(function() {
+		var qr = new QRious({
+		element: document.getElementById('qr'),
+		value: 'http://localhost:4000/blinking-a-led',
+		backgroundAlpha: 0,
+		padding: 0,
+		size: 200,
+		});
+	})();
+	</script>
+	<div id="content">
+		<div class="row justify-content-md-center pt-3">
+			<div class="col col-md-12 col-lg-10">
+			<h1 id="introduction">Introduction</h1>
+<p>After some time sifting through code and making/breaking things, I decided to put stuff in writing.</p>
+
+<p>Beginning was with an IDE. I migrated since to command line compiling and linking tools to better understand the background and how the things work.</p>
+
+<p>Chip of choice is STM32F103C8 commonly known as the blue pill, named so after a size factor and PCB color.</p>
+
+<p>Tools of choice: open source and widely used. GNU gcc for ARM microcontroller and GNU ld linker. For flashing the chip I use JLink for uploading the hex file.</p>
+
+<p>Why does binary file format suck? When you need to put variables at exact memory address in address space, binary file format fills everything with blank space up until the declared variable,
+and that can grow to a quite big size. When I discovered this, I was perplexed why my binary file was cca 1 GB in size, instead of a few KBs. That’s why I switched to Intel hex format, or
+more popularly called just hex. JLink flash utility supports binary AND hex formats, amongst others.</p>
+
+<p>A little background about the tools needed. Compiler transforms source code to object files, and linker pieces the bits together to produce one ouput file, which is then ready to be uploaded
+to the chip with a flash tool.</p>
+
+<p>We’re going to start with the simplest possible example. Blinking the led inaccurately and with an uninitialized clock source, which defaults to 8 MHz internal RC clock.</p>
+
+<p>What does it tell us? That the linker, compiler and uploader work correctly. With a proper stepping stone, we are always free to break and make things, for example “code refactoring”,
+fancy name for rewriting code because you don’t like it, think it’s ugly or it’s a depressing Saturday afternoon.</p>
+
+<h1 id="entry-to-the-main-program">Entry to the main program</h1>
+<p>After compiler and linker together make a salad, where does it start? Does it start in a random chunk of memory, and if not, how can I tell them where to exactly start?</p>
+
+<p>For that we have a global start function as an entry to the program.
+If a global directive is missing for a symbol, that symbol will not be placed in the object code’s export table, so linker has no way of knowing about the symbol. 
+We also need to put the address of the stacktop right at the beginning of memory space. After that comes the reset address, where the microcontroller ALWAYS ends up first after resetting.</p>
+
+<p>After we have defined global entry in the program (for the linker) and reset entry, we can add a path that leads to our main function (entry to our c part of the program).</p>
+<pre><code class="language-asm">.global _start
+_start:
+stacktop: .word 0x20001000
+.word reset
+.word hang
+
+reset:
+	bl notmain
+	b hang
+.thumb_func
+hang:   b .
+</code></pre>
+<h1 id="recommendation">Recommendation</h1>
+<p>I can also recommend a really good github repository from dwelch67 that got me on the right track.
+<a href="https://github.com/dwelch67/stm32_samples/tree/master/STM32F103C8T6">dwelch67’s repository</a></p>
+
+<p>Majority of code during this post will be explaining the code that can be found in the link above, with simplifications and modifications.</p>
+
+<p>I am not going to say to copy all from somebody else. But for the beginning I recommend it because they made it work, and it should also work when compiled and flashed.
+After we have that working base example, then comes the creativity and design choices in question.</p>
+
+<h1 id="functions-for-direct-register-access">Functions for direct register access</h1>
+<p>We are going to need a function to directly access registers and also fill them with data. Functions used are assembler functions PUT32 and GET32.
+Assembler functions can be used directly in C program code and first four registers are filled with function paramaters. That means that the r0 registers will be filled with the first function
+parameter up until r3. Square brackets signify that the value in the register is meant as an address. .globl keyword signifies that the function is global and accessible anywhere.</p>
+<pre><code class="language-asm">.globl PUT32
+PUT32:
+	str r1,[r0]
+	bx lr
+
+.globl GET32
+GET32:
+	ldr r0,[r0]
+	bx lr
+	
+.globl dummy
+	dummy:
+	bx lr
+</code></pre>
+<h1 id="getting-the-led-up-and-running">Getting the led up and running</h1>
+<p>Bluepill board has a led light connected to the PC13 pin. We need to enable clock for port C, initialize the pin as a push pull output, then toggle the pin.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">PUT32</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="p">);</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">GET32</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="p">);</span>
+<span class="kt">void</span> <span class="nf">dummy</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="p">);</span>
+
+<span class="c1">//define address base for port C</span>
+<span class="cp">#define GPIOCBASE 0x40011000
+</span><span class="c1">//define address base for clock control</span>
+<span class="cp">#define RCCBASE 0x40021000
+</span>
+<span class="c1">//our entry point into the program, defined in our assembler file</span>
+<span class="kt">int</span> <span class="nf">notmain</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">ra</span><span class="p">;</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rx</span><span class="p">;</span>
+
+	<span class="n">ra</span><span class="o">=</span><span class="n">GET32</span><span class="p">(</span><span class="n">RCCBASE</span><span class="o">+</span><span class="mh">0x18</span><span class="p">);</span>
+	<span class="n">ra</span><span class="o">|=</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">;</span> <span class="c1">//enable port c</span>
+	<span class="n">PUT32</span><span class="p">(</span><span class="n">RCCBASE</span><span class="o">+</span><span class="mh">0x18</span><span class="p">,</span><span class="n">ra</span><span class="p">);</span>
+	<span class="c1">//config</span>
+	<span class="n">ra</span><span class="o">=</span><span class="n">GET32</span><span class="p">(</span><span class="n">GPIOCBASE</span><span class="o">+</span><span class="mh">0x04</span><span class="p">);</span>
+	<span class="n">ra</span><span class="o">&amp;=~</span><span class="p">(</span><span class="mi">3</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">);</span>   <span class="c1">//PC13</span>
+	<span class="n">ra</span><span class="o">|=</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">;</span>      <span class="c1">//PC13</span>
+	<span class="n">ra</span><span class="o">&amp;=~</span><span class="p">(</span><span class="mi">3</span><span class="o">&lt;&lt;</span><span class="mi">22</span><span class="p">);</span>   <span class="c1">//PC13</span>
+	<span class="n">ra</span><span class="o">|=</span><span class="mi">0</span><span class="o">&lt;&lt;</span><span class="mi">22</span><span class="p">;</span>      <span class="c1">//PC13</span>
+	<span class="n">PUT32</span><span class="p">(</span><span class="n">GPIOCBASE</span><span class="o">+</span><span class="mh">0x04</span><span class="p">,</span><span class="n">ra</span><span class="p">);</span>
+
+	<span class="k">for</span><span class="p">(</span><span class="n">rx</span><span class="o">=</span><span class="mi">0</span><span class="p">;;</span><span class="n">rx</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">PUT32</span><span class="p">(</span><span class="n">GPIOCBASE</span><span class="o">+</span><span class="mh">0x10</span><span class="p">,</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="mi">13</span><span class="o">+</span><span class="mi">0</span><span class="p">));</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">ra</span><span class="o">&lt;</span><span class="mi">200000</span><span class="p">;</span><span class="n">ra</span><span class="o">++</span><span class="p">)</span> <span class="n">dummy</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span>
+		<span class="n">PUT32</span><span class="p">(</span><span class="n">GPIOCBASE</span><span class="o">+</span><span class="mh">0x10</span><span class="p">,</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="mi">13</span><span class="o">+</span><span class="mi">16</span><span class="p">));</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">ra</span><span class="o">&lt;</span><span class="mi">200000</span><span class="p">;</span><span class="n">ra</span><span class="o">++</span><span class="p">)</span> <span class="n">dummy</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Bits that interest us:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>RCC_APB2ENR</th>
+      <th>…</th>
+      <th>bit 4</th>
+      <th>…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0x018 offset</td>
+      <td>…</td>
+      <td>IOPCEN</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken from page 153 of the manual. We are putting 1 into the bit 4 of the APB2 clock enable register to turn on the clock for the port C peripherals.</p>
+
+<p>Link for creating the tables: https://ozh.github.io/ascii-tables/</p>
+
+<p>GPIO configuration registers are split into two registers: Low and High. Low register contain the pins from 0 to 7 and High contain pins from 8 to 15.</p>
+
+<p>Bits that interest us:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>GPIOx_CRH</th>
+      <th>…</th>
+      <th>Bits 23-22</th>
+      <th>Bits 21-20</th>
+      <th>…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0x04 offset</td>
+      <td>…</td>
+      <td>CNF13[1:0]</td>
+      <td>MODE13[1:0]</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken from page 188 of the manual. We are setting the values in the bits 20-21 for the pin mode and 22-23 for the configuration mode of the pin.</p>
+
+<p>On the page 167 we may read about valid bit combos for those four bits.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>CNFy[1:0]</th>
+      <th>In input mode (MODE[1:0]=00)</th>
+      <th>In output mode(MODE[1:0]&gt;00)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>for CRH</td>
+      <td>00: Analog mode</td>
+      <td>00: General purpose output Push-pull</td>
+    </tr>
+    <tr>
+      <td>y = 8…15</td>
+      <td>01: Floating input</td>
+      <td>01: General purpose output Open-drain</td>
+    </tr>
+    <tr>
+      <td>for CRL</td>
+      <td>10: Input with pull-up / pull-down</td>
+      <td>10: Alternate function output Push-pull</td>
+    </tr>
+    <tr>
+      <td>y = 0…7</td>
+      <td>11: Reserved state</td>
+      <td>11: Alternate function output Open-drain</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>MODEy[1:0]</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>for CRH</td>
+      <td>00: Input mode (reset state)</td>
+    </tr>
+    <tr>
+      <td>y = 8…15</td>
+      <td>01: Output mode, max speed 10 MHz</td>
+    </tr>
+    <tr>
+      <td>for CRL</td>
+      <td>10: Output mode, max speed 2 MHz</td>
+    </tr>
+    <tr>
+      <td>y = 0…7</td>
+      <td>11: Output mode, max speed 50 MHz</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For writing your own library, you will need to familiarize yourself with the datashet of the microcontroller, in this case STM32F103C8 RM0008 Reference Manual. The datasheet will be
+extensively used throughout the posts.</p>
+
+<p>Up until now we have two files: startup.s and programentry.c. Now we need to setup an environment for compiling, linking and flashing.</p>
+
+<h1 id="linker-file">Linker file</h1>
+<p>Linker file looks like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	MEMORY
+	{
+		rom : ORIGIN = 0x08000000, LENGTH = 0x1000
+		ram : ORIGIN = 0x20000000, LENGTH = 0x1000
+	}
+
+	SECTIONS
+	{
+		.text : { *(.text*) } &gt; rom
+		.rodata : { *(.rodata*) } &gt; rom
+		.bss : { *(.bss*) } &gt; ram
+	}
+</code></pre></div></div>
+<p>MEMORY keyword tells us how the memory is organized and how big it is. SECTIONS keyword defines where the types of program data should go. In this example we tell the linker that
+.text and .rodata should go in ROM part of the memory, and .bss data in the RAM part of the memory.
+ (.bss) =&gt; segment for uninitialized data. 
+ (.data) =&gt; segment for initialized data here by default.
+ (.rodata) =&gt; segment for constant data.</p>
+
+<p>I am using GNU ld linker, as a good open source choice widely used. I am not trying to use black magic or obscure tools.</p>
+
+<h1 id="makefile">Makefile</h1>
+<p>Minimum unix tools required are make and rm, both used in the makefile.</p>
+
+<p>Let’s go through the makefile.
+Here, we are just declaring some variables to make the makefile more readable.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARMGNU = arm-none-eabi
+
+AOPS = --warn --fatal-warnings -mcpu=cortex-m3
+COPS = -Wall -Werror -O2 -nostdlib -nostartfiles -ffreestanding -mcpu=cortex-m0
+</code></pre></div></div>
+<p>Here is the first “recipe” in linker terminology, that can be invoked with “make all” or just “make”. Invoking only “make” will execute the first found recipe.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	all : output.hex
+</code></pre></div></div>
+<p>Here is the second recipe which is used for a cleanup of produced files, leaving only the source files intact.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clean:
+	rm -f *.bin
+	rm -f *.o
+	rm -f *.elf
+	rm -f *.list
+	rm -f *.bc
+	rm -f *.opt.s
+	rm -f *.norm.s
+	rm -f *.hex
+</code></pre></div></div>
+<p>We are defining rules for compilation of our two source files. startup.o needs startup.s and that’s why we are declaring .s file on the right side as a dependency, and building the
+file with an assembler (-as, or full blown command arm-linux-gnueabi-as)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>startup.o : startup.s
+	$(ARMGNU)-as $(AOPS) startup.s -o startup.o
+</code></pre></div></div>
+<p>File programentry.c is being compiled here with a gcc compiler. It is also being specified that we are using thumb instruction set (-mthumb), cpu Cortex-M3 (-mcpu=cortex-m3), architecture
+ARMv7 (armv7-m), that the input file is programentry.c and output file should be programentry.o.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>programentry.o : programentry.c	
+	$(ARMGNU)-gcc $(COPS) -mthumb -mcpu=cortex-m3 -march=armv7-m -c programentry.c -o programentry.o
+</code></pre></div></div>
+
+<p>Here is the build of the final output file that is going to be flashed on the chip. Our final output file depends on three files. Linker file linker.ld and two object files startup.o and
+programentry.o compiled from the source files.
+the source files</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	output.hex : linker.ld startup.o programentry.o
+</code></pre></div></div>
+<p>Here are the objects linked according to linker file linker.ld and output is an elf file.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		$(ARMGNU)-ld -o output.elf -T linker.ld startup.o programentry.o
+</code></pre></div></div>
+<p>Object dump (objdump) is used to dump the contents from an .elf file to the .list file.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		$(ARMGNU)-objdump -D output.elf &gt; output.list
+</code></pre></div></div>
+<p>Finally, from the .elf file we get the final output file with objcopy.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		$(ARMGNU)-objcopy output.elf output.hex -O ihex
+</code></pre></div></div>
+
+<h1 id="hardware-used-for-flashing-the-chip">Hardware used for flashing the chip</h1>
+<p>I am using Segger’s J-link to flash the chip via the SWD (Single Wire Debugging) interface and am also using JLink v5.10u, an older version of the flashing software. If it works, there’s no
+reason to continuously update.</p>
+
+<p>Hardware connections are as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>J-link Pin 1 = VCCref =&gt; Pin 1 SWD Connector
+J-link Pin 7 = SWDIO =&gt; SWDIO Pin
+J-link Pin 9 = SWCLK =&gt; SWCLK Pin
+J-link Pin 13 = SWO =&gt; PB3 Pin
+J-link Pin 19 = Target power supply =&gt; 3v3 pin of the microcontroller
+J-link Pin 4 = Ground Pin =&gt; connect to any GND pin of the microcontroller
+</code></pre></div></div>
+
+<p>To enable the J-link to power the target, the following command must be input through the J-link command line: “power on perm”.</p>
+
+<p>To connect to the microcontroller, I run the J-link flash program through the command line. Here is the output.</p>
+<div class="language-bat highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">Microsoft</span> <span class="kd">Windows</span> <span class="o">[</span><span class="kd">Version</span> <span class="m">6</span>.1.7601<span class="o">]</span>
+	<span class="kd">Copyright</span> <span class="o">(</span><span class="kd">c</span><span class="o">)</span> <span class="m">2009</span> <span class="kd">Microsoft</span> <span class="kd">Corporation</span>.  <span class="kd">All</span> <span class="kd">rights</span> <span class="kd">reserved</span>.
+
+	<span class="kd">C</span>:\Users\Bunny&gt;jlink
+	<span class="kd">SEGGER</span> <span class="kd">J</span><span class="na">-Link </span><span class="kd">Commander</span> <span class="kd">V5</span>.10u <span class="o">(</span><span class="kd">Compiled</span> <span class="kd">Mar</span> <span class="m">17</span> <span class="m">2016</span> <span class="m">18</span>:57:13<span class="o">)</span>
+	<span class="kd">DLL</span> <span class="kd">version</span> <span class="kd">V5</span>.10u<span class="o">,</span> <span class="kd">compiled</span> <span class="kd">Mar</span> <span class="m">17</span> <span class="m">2016</span> <span class="m">18</span>:56:47
+
+	<span class="kd">Connecting</span> <span class="kd">to</span> <span class="kd">J</span><span class="na">-Link </span><span class="kd">via</span> <span class="kd">USB</span>...O.K.
+	<span class="kd">Firmware</span>: <span class="kd">J</span><span class="na">-Link </span><span class="kd">ARM</span> <span class="kd">V8</span> <span class="kd">compiled</span> <span class="kd">Nov</span> <span class="m">28</span> <span class="m">2014</span> <span class="m">13</span>:44:46
+	<span class="kd">Hardware</span> <span class="kd">version</span>: <span class="kd">V8</span>.00
+	<span class="kd">S</span><span class="na">/N</span>: <span class="m">58001139</span>
+	<span class="kd">License</span><span class="o">(</span><span class="kd">s</span><span class="o">)</span>: <span class="kd">RDI</span><span class="o">,</span><span class="kd">FlashDL</span><span class="o">,</span><span class="kd">FlashBP</span><span class="o">,</span><span class="kd">JFlash</span>
+	<span class="kd">VTref</span> <span class="o">=</span> <span class="m">4</span>.801V
+
+
+	<span class="kd">Type</span> <span class="s2">"connect"</span> <span class="kd">to</span> <span class="kd">establish</span> <span class="kd">a</span> <span class="kd">target</span> <span class="kd">connection</span><span class="o">,</span> <span class="s1">'?'</span> <span class="k">for</span> <span class="nb">help</span>
+	<span class="kd">J</span><span class="na">-Link</span><span class="o">&gt;</span><span class="kd">connect</span>
+	<span class="kd">Please</span> <span class="kd">specify</span> <span class="kd">device</span> / <span class="kd">core</span>. <span class="o">&lt;</span><span class="kd">Default</span><span class="o">&gt;</span>: <span class="kd">STM32F103C8</span>
+	<span class="kd">Type</span> <span class="s1">'?'</span> <span class="k">for</span> <span class="kd">selection</span> <span class="kd">dialog</span>
+	<span class="kd">Device</span><span class="o">&gt;</span>
+	<span class="kd">Please</span> <span class="kd">specify</span> <span class="kd">target</span> <span class="kd">interface</span>:
+	  <span class="kd">J</span><span class="o">)</span> <span class="kd">JTAG</span> <span class="o">(</span><span class="kd">Default</span><span class="o">)</span>
+	  <span class="kd">S</span><span class="o">)</span> <span class="kd">SWD</span>
+	<span class="kd">TIF</span><span class="o">&gt;</span><span class="kd">s</span>
+	<span class="kd">Specify</span> <span class="kd">target</span> <span class="kd">interface</span> <span class="kd">speed</span> <span class="o">[</span><span class="kd">kHz</span><span class="o">]</span>. <span class="o">&lt;</span><span class="kd">Default</span><span class="o">&gt;</span>: <span class="m">4000</span> <span class="kd">kHz</span>
+	<span class="kd">Speed</span><span class="o">&gt;</span>
+	<span class="kd">Device</span> <span class="s2">"STM32F103C8"</span> <span class="kd">selected</span>.
+
+
+	<span class="kd">Found</span> <span class="kd">SWD</span><span class="na">-DP </span><span class="kd">with</span> <span class="kd">ID</span> <span class="mh">0x1BA01477</span>
+	<span class="kd">Found</span> <span class="kd">SWD</span><span class="na">-DP </span><span class="kd">with</span> <span class="kd">ID</span> <span class="mh">0x1BA01477</span>
+	<span class="kd">Found</span> <span class="kd">Cortex</span><span class="na">-M</span><span class="m">3</span> <span class="kd">r1p1</span><span class="o">,</span> <span class="kd">Little</span> <span class="kd">endian</span>.
+	<span class="kd">FPUnit</span>: <span class="m">6</span> <span class="kd">code</span> <span class="o">(</span><span class="kd">BP</span><span class="o">)</span> <span class="kd">slots</span> <span class="kd">and</span> <span class="m">2</span> <span class="kd">literal</span> <span class="kd">slots</span>
+	<span class="kd">CoreSight</span> <span class="kd">components</span>:
+	<span class="kd">ROMTbl</span> <span class="m">0</span> @ <span class="kd">E00FF000</span>
+	<span class="kd">ROMTbl</span> <span class="m">0</span> <span class="o">[</span><span class="m">0</span><span class="o">]</span>: <span class="kd">FFF0F000</span><span class="o">,</span> <span class="kd">CID</span>: <span class="kd">B105E00D</span><span class="o">,</span> <span class="kd">PID</span>: <span class="m">001</span><span class="kd">BB000</span> <span class="kd">SCS</span>
+	<span class="kd">ROMTbl</span> <span class="m">0</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="kd">FFF02000</span><span class="o">,</span> <span class="kd">CID</span>: <span class="kd">B105E00D</span><span class="o">,</span> <span class="kd">PID</span>: <span class="m">001</span><span class="kd">BB002</span> <span class="kd">DWT</span>
+	<span class="kd">ROMTbl</span> <span class="m">0</span> <span class="o">[</span><span class="m">2</span><span class="o">]</span>: <span class="kd">FFF03000</span><span class="o">,</span> <span class="kd">CID</span>: <span class="kd">B105E00D</span><span class="o">,</span> <span class="kd">PID</span>: <span class="m">000</span><span class="kd">BB003</span> <span class="kd">FPB</span>
+	<span class="kd">ROMTbl</span> <span class="m">0</span> <span class="o">[</span><span class="m">3</span><span class="o">]</span>: <span class="kd">FFF01000</span><span class="o">,</span> <span class="kd">CID</span>: <span class="kd">B105E00D</span><span class="o">,</span> <span class="kd">PID</span>: <span class="m">001</span><span class="kd">BB001</span> <span class="kd">ITM</span>
+	<span class="kd">ROMTbl</span> <span class="m">0</span> <span class="o">[</span><span class="m">4</span><span class="o">]</span>: <span class="kd">FFF41000</span><span class="o">,</span> <span class="kd">CID</span>: <span class="kd">B105900D</span><span class="o">,</span> <span class="kd">PID</span>: <span class="m">001</span><span class="kd">BB923</span> <span class="kd">TPIU</span><span class="na">-Lite
+	</span><span class="kd">Cortex</span><span class="na">-M</span><span class="m">3</span> <span class="kd">identified</span>.
+	<span class="kd">J</span><span class="na">-Link</span><span class="o">&gt;</span><span class="kd">power</span> <span class="na">on</span> <span class="kd">perm</span>
+	<span class="kd">J</span><span class="na">-Link</span><span class="o">&gt;</span>
+</code></pre></div></div>
+<p>We are using the “loadfile” command to load the hex file onto the chip. After flashing the chip, we issue “r” for reset and “g” for go command. The led should inaccurately, but happily blink.</p>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#sidebar").mCustomScrollbar({
+			theme: "minimal"
+		});
+
+		$('#sidebarCollapse').on('click', function () {
+			$(this).find('.svg-inline--fa').toggleClass('fa-eye fa-eye-slash');
+			$('#sidebar, #content, #sidebarCollapse').toggleClass('active');
+			$('.collapse.in').toggleClass('in');
+			$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+		});
+	});
+    </script>	
+	</body>
+</html>
