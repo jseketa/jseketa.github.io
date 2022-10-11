@@ -7,7 +7,7 @@ tags:
   - nodejs
   - scraping
 excerpt: "Initial ponderings, decisions and abstractions."
-cover: draft.png
+cover: draft.jpg
 ---
 
 # Initial design
