@@ -8,6 +8,7 @@ tags:
   - embedded
   - blue pill
 excerpt: "Setting up the necessary tools, writing a simple program to blink a led."
+cover: led.jpg
 ---
 
 # Introduction

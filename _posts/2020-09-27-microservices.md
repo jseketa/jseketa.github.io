@@ -7,6 +7,7 @@ tags:
   - nodejs
   - microservices
 excerpt: "Documenting the microservice for listing the existing universes"
+cover: microservices.png
 ---
 
 # Microservices

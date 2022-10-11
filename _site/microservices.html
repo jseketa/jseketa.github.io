@@ -1,0 +1,197 @@
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+	<!-- Site specific -->
+	<link href="http://localhost:4000/assets/css/main.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="http://localhost:4000/assets/js/script.js"></script>
+	<script type="text/javascript" src="http://localhost:4000/assets/js/qrious.min.js"></script>
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+	<title>Microservices</title>
+	
+</head>
+	<body>
+	<div class="wrapper">
+	<!-- Sidebar  -->
+
+	<nav id="sidebar">
+	    <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-eye"></i>
+        </button>
+		
+		<div class="sidebar-header">
+			<div class="profile-photo"><a href="http://localhost:4000" class="home"><img src="/assets/author.png"></img></a></div>
+		</div>
+
+		<ul class="list-unstyled components">
+			<div class="social-links">
+	<a href="https://facebook.com/jseketa" target="_blank"><i class="btn btn-light fab fa-facebook-f fa-3x"></i></a> 
+	<a href="https://twitter.com/jseketa" target="_blank"><i class="btn btn-light fab fa-twitter fa-3x"></i></a> 
+		<a href="https://github.com/jseketa" target="_blank"><i class="btn btn-light fab fa-github-alt fa-3x"></i></a> 
+	<a href="https://linkedin.com/in/jseketa" target="_blank"><i class="btn btn-light fab fa-linkedin-in fa-3x"></i></a> 
+</div>
+			<li>
+				<a href="#">About</a>
+			</li>
+			<li>
+				<a href="#">Portfolio</a>
+			</li>
+			<li>
+				<a href="#">Contact</a>
+			</li>
+		</ul>
+    		<p class="qr-current">Read me on your phone:</p>
+			<center><canvas id="qr"></canvas></center>
+	</nav>
+	
+		
+	<script>
+	(function() {
+		var qr = new QRious({
+		element: document.getElementById('qr'),
+		value: 'http://localhost:4000/microservices',
+		backgroundAlpha: 0,
+		padding: 0,
+		size: 200,
+		});
+	})();
+	</script>
+	<div id="content">
+		<div class="row justify-content-md-center pt-3">
+			<div class="col col-md-12 col-lg-10">
+			<h1 id="microservices">Microservices</h1>
+
+<p>Checking if the universe exists with test cases and code coverage.</p>
+
+<p><strong>ROUTE:</strong> /universe/exists</p>
+
+<p><strong>METHOD:</strong> POST</p>
+
+<p><strong>NAME:</strong> Universe exists</p>
+
+<p><strong>PORT:</strong> 4000</p>
+
+<p><strong>Description:</strong></p>
+
+<ul>
+  <li>accepted arguments
+    <ul>
+      <li>name</li>
+      <li>language</li>
+    </ul>
+  </li>
+  <li>returns
+    <ul>
+      <li>if server exists return server data as json</li>
+      <li>if server does not exist return error message</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>ERRORS:</strong></p>
+
+<ul>
+  <li>server not reachable</li>
+  <li>server not found</li>
+</ul>
+
+<p>Example server data:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"ar"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"number"</span><span class="p">:</span><span class="mi">117</span><span class="p">,</span><span class="w">
+</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Quantum"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"playerCount"</span><span class="p">:</span><span class="mi">1005</span><span class="p">,</span><span class="w">
+</span><span class="nl">"playersOnline"</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span><span class="nl">"opened"</span><span class="p">:</span><span class="s2">"2016-05-06T11:15:08+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"startDate"</span><span class="p">:</span><span class="s2">"2016-05-06T11:15:08+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"endDate"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nl">"serverClosed"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"prefered"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"signupClosed"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"settings"</span><span class="p">:{</span><span class="w">
+	</span><span class="nl">"aks"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"fleetSpeed"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"wreckField"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"serverLabel"</span><span class="p">:</span><span class="s2">"empty"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"economySpeed"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"planetFields"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"universeSize"</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"serverCategory"</span><span class="p">:</span><span class="s2">"miner"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"espionageProbeRaids"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"premiumValidationGift"</span><span class="p">:</span><span class="mi">8000</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"debrisFieldFactorShips"</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"researchDurationDivisor"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"debrisFieldFactorDefence"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Allowing only the POST method in expressjs:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="dl">'</span><span class="s1">/universe/exists</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">queryObj</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+			<span class="na">language</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">language</span><span class="p">,</span>
+		<span class="p">};</span>
+
+		<span class="nx">universe</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">queryObj</span><span class="p">)</span>
+		<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">body</span><span class="p">));</span>	
+	<span class="p">};</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">]</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Only accepting Content-Type: application/json</span><span class="dl">'</span><span class="p">);</span>
+	<span class="p">};</span>
+	
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="dl">'</span><span class="s1">Access-Control-Allow-Methods</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">);</span>
+	<span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">405</span><span class="p">).</span><span class="nx">send</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#sidebar").mCustomScrollbar({
+			theme: "minimal"
+		});
+
+		$('#sidebarCollapse').on('click', function () {
+			$(this).find('.svg-inline--fa').toggleClass('fa-eye fa-eye-slash');
+			$('#sidebar, #content, #sidebarCollapse').toggleClass('active');
+			$('.collapse.in').toggleClass('in');
+			$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+		});
+	});
+    </script>	
+	</body>
+</html>
