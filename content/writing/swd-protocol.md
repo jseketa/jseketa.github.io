@@ -48,14 +48,14 @@ nobody drives it while ownership changes. That is the **turnaround** period,
 one clock cycle by default, and it happens twice in every transaction: after
 the host finishes its request, and again after the target finishes its reply.
 
-Drawn out, one whole transaction looks like this:
+Drawn out, one whole read looks like this:
 
-```wave caption="The z region is the turnaround: neither end is driving, which is what makes a single-wire bidirectional bus possible."
+```wave caption="A read transaction. The two z regions are the turnarounds: neither end is driving, which is what makes a single-wire bidirectional bus possible."
 { "signal": [
-  { "name": "SWCLK",     "wave": "P............" },
-  { "name": "SWDIO",     "wave": "x3.......z4..", "data": ["8-bit request", "3-bit ACK"] },
+  { "name": "SWCLK",     "wave": "P...............|......" },
+  { "name": "SWDIO",     "wave": "03.......z4..5..|..6z0.", "data": ["8-bit request", "3-bit ACK", "32-bit data", "parity"] },
   {},
-  { "name": "driven by", "wave": "x5.......z6..", "data": ["host", "target"] }
+  { "name": "driven by", "wave": "5........z6.....|...z5.", "data": ["host", "target", "host"] }
 ]}
 ```
 
