@@ -46,7 +46,7 @@
       '.s6{fill:' + ink + ' !important}',
       // signal names and data labels
       'text{fill:' + ink + ' !important;font-family:' + mono +
-        ' !important;font-size:11px !important}',
+        ' !important;font-size:12px !important}',
       // the six data-block colours, retinted low-saturation so the label on
       // top stays readable in both themes
       '.s8{fill:' + tint(accent2, 26, surf) + ' !important}',
