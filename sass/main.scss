@@ -200,7 +200,7 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 // ---------------------------------------------------------------------------
 
 .session {
-  padding-top: 2.4rem;
+  padding-top: 1.8rem;
   padding-bottom: 2rem;
   font-family: var(--mono);
   font-size: 15px;
@@ -667,36 +667,37 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .foot a:hover { color: var(--hi); }
 
 // ---------------------------------------------------------------------------
-// Theme switch, top right of every page: `theme [paper] amber`. Both
-// options are always visible and the current one is bracketed, so it
-// reads as a setting, not a link. One click flips it (js/theme.js).
+// Theme switch: `[paper] amber` in the top right corner. Both options are
+// always visible and the current one is bracketed, so it reads as a
+// setting. It is taken out of the flow and sits on the first line of the
+// page (the prompt on the home page, the header line elsewhere), so it
+// costs no height. One click flips it (js/theme.js).
 // ---------------------------------------------------------------------------
 
 .topbar {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: .9rem;
+  position: relative;
+  height: 0;
 }
 
 .theme-toggle {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.4rem;
   display: inline-flex;
   align-items: baseline;
-  gap: .55em;
+  gap: .3em;
   margin: 0;
-  padding: .25rem .5rem;
-  border: 1px solid var(--rule);
+  padding: 0;
+  border: 0;
   background: none;
-  font: 500 12.5px/1.4 var(--mono);
-  letter-spacing: .02em;
+  font: 500 13px/1.65 var(--mono);
   color: var(--dim);
   cursor: pointer;
 }
 
-.theme-toggle:hover { border-color: var(--accent); color: var(--mid); }
+.theme-toggle:hover .theme-toggle__opt { color: var(--mid); }
+.theme-toggle:hover .theme-toggle__opt--paper, .theme-toggle:hover .theme-toggle__opt--amber { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent); }
 .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-.theme-toggle__key { color: var(--dim); }
-.theme-toggle__key::after { content: ":"; }
 
 .theme-toggle__opt::before { content: "\00a0"; }
 .theme-toggle__opt::after { content: "\00a0"; }

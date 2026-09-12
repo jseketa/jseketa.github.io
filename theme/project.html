@@ -2,9 +2,9 @@
 {% let linked = page.posts %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}</span>
+    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}{% if page.extra.year %} &middot; {{ page.extra.year }}{% end %}</span>
     <span>{{ config.title }}</span>
-    <span>{% if page.extra.year %}{{ page.extra.year }}{% end %}</span>
+    <span></span>
   </div>
 
   <h1>{{ page.title }}</h1>
