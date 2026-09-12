@@ -50,13 +50,15 @@ the host finishes its request, and again after the target finishes its reply.
 
 Drawn out, one whole read looks like this:
 
-```wave caption="A read transaction. The two z regions are the turnarounds: neither end is driving, which is what makes a single-wire bidirectional bus possible."
+```wave caption="A read transaction; P is the parity bit. The two z regions are the turnarounds: neither end is driving, which is what makes a single-wire bidirectional bus possible."
 { "signal": [
   { "name": "SWCLK",     "wave": "P.............|..........." },
-  { "name": "SWDIO",     "wave": "03.......z4..5|.......6z0.", "data": ["8-bit request", "3-bit ACK", "32-bit data", "parity"] },
+  { "name": "SWDIO",     "wave": "03.......z4..5|.......6z0.", "data": ["8-bit request", "ACK", "32-bit data", "P"] },
   {},
   { "name": "driven by", "wave": "5........z6...|........z5.", "data": ["host", "target", "host"] }
-]}
+],
+"config": { "skin": "narrow" }
+}
 ```
 
 Two more line states matter:

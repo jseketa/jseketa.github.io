@@ -636,16 +636,12 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 // WaveDrom: layout only. The palette is injected into each generated SVG by
 // wavedrom-init.js, because the panel background is an inline style and the
 // coloured blocks are <use> clones of <defs>.
-// WaveDrom draws 40px per clock and only scales by whole numbers, so a
-// whole transaction is about 1140px wide. The figure is allowed that width
-// (it runs past the column on a wide screen, and shrinks to the viewport
-// on a narrow one) rather than being squeezed into the hanging column,
-// where it read at 70%. wavedrom-init.js sets the labels at 12px, the
-// largest size its name column fits.
-.prose .diagram--wave {
-  width: min(1140px, 100vw - 2.8rem);
-
-  svg { width: 100%; height: auto; }
+// WaveDrom's default skin draws 40px per clock, which makes a whole
+// transaction wider than the column and shrinks it to 70%; diagrams that
+// long use its narrow skin (20px per clock, shipped next to the default)
+// and fit at their own size. wavedrom-init.js sets the labels at 12px.
+.diagram--wave {
+  svg { max-width: 100%; height: auto; }
 }
 
 // ---------------------------------------------------------------------------
