@@ -897,6 +897,12 @@ body.presenting .slide.current .diagram figcaption { margin-left: 0; text-align:
 body.presenting .present-rail,
 body.presenting .present-count { display: block; }
 
+// The presenter's blank button: nothing on the stage but the ground.
+body.presenting.blanked .slide.current,
+body.presenting.blanked .topbar,
+body.presenting.blanked .present-rail,
+body.presenting.blanked .present-count { visibility: hidden; }
+
 @media (prefers-reduced-motion: no-preference) {
   .present-rail { transition: width .18s ease; }
 }

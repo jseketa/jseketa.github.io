@@ -81,6 +81,7 @@
   function stop() {
     presenting = false;
     document.body.classList.remove('presenting');
+    document.body.classList.remove('blanked');
     slides.forEach(function (s) { s.classList.remove('current'); });
     if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
     if (wake) { wake.release(); wake = null; }
@@ -91,15 +92,26 @@
     a.addEventListener('click', function (e) { e.preventDefault(); start(); });
   });
 
+  // The blank button: the stage goes to the theme's ground until the next
+  // key. Any slide change unblanks.
+  function blank(on) { document.body.classList.toggle('blanked', on); }
+
   document.addEventListener('keydown', function (e) {
-    if (!presenting) return;
     var k = e.key;
-    // Left/right, space and the clicker's PageUp/PageDown move between
-    // slides; up/down scroll the one on screen, for the dense ones.
-    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { show(index + 1); e.preventDefault(); }
-    else if (k === 'ArrowLeft' || k === 'PageUp') { show(index - 1); e.preventDefault(); }
+    // The presenter's start/stop button is F5, which would otherwise
+    // reload the page.
+    if (k === 'F5') { e.preventDefault(); if (e.repeat) return; if (presenting) stop(); else start(); return; }
+    if (!presenting) return;
+    // A held button auto-repeats; one press is one step.
+    if (e.repeat) { e.preventDefault(); return; }
+    // Left/right, space and the presenter's PageUp/PageDown move between
+    // slides; up/down scroll the one on screen, for the dense ones;
+    // `.` (the presenter's blank button) blanks the stage.
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { blank(false); show(index + 1); e.preventDefault(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { blank(false); show(index - 1); e.preventDefault(); }
     else if (k === 'ArrowDown') { slides[index].scrollBy(0, window.innerHeight * 0.6); e.preventDefault(); }
     else if (k === 'ArrowUp') { slides[index].scrollBy(0, -window.innerHeight * 0.6); e.preventDefault(); }
+    else if (k === '.' || k === 'b') { blank(!document.body.classList.contains('blanked')); e.preventDefault(); }
     else if (k === 'Escape') stop();
   });
 
