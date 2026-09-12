@@ -321,6 +321,9 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .hdr { padding-right: 16rem; }
 
 .hdr a, .ftr a { color: var(--dim); }
+
+// The marker that a post is also a talk: the accent, in the header line.
+.hdr a.present { color: var(--accent); }
 .hdr a:hover, .ftr a:hover { color: var(--hi); }
 
 .ftr {

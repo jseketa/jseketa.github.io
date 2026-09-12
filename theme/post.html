@@ -2,7 +2,7 @@
 {% let owner = page.project %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}</span>
+    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}{% if page.extra.present %} &middot; <a class="present" href="?present" data-present title="Present this article as slides: arrows or a clicker to move, Esc to leave">present</a>{% end %}</span>
     <span>{{ config.title }}</span>
     <span></span>
   </div>
@@ -14,11 +14,7 @@
     {{ page.content }}
   </article>
 
-  {% if page.extra.present %}
-  <div class="sec">PRESENT</div>
-  <div class="body also"><p><a href="?present" data-present>present</a> <span class="dim">this article as slides: arrows to move, Esc to leave</span></p></div>
-  <script src="{{ url("js/present.js") }}" defer></script>
-  {% end %}
+  {% if page.extra.present %}<script src="{{ url("js/present.js") }}" defer></script>{% end %}
 
   {% if page.earlier or page.later %}
   <div class="sec">SEE ALSO</div>
