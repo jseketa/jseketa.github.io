@@ -17,11 +17,11 @@
 
   {% if page.extra.present %}<script src="{{ url("js/present.js") }}" defer></script>{% end %}
 
-  {% if page.earlier or page.later %}
+  {% if page.project and (page.prev or page.next) %}
   <div class="sec">SEE ALSO</div>
   <div class="body also">
-    {% if page.earlier %}<p><span class="dim">earlier</span> <a href="{{ page.earlier.url }}">{{ page.earlier.title }}</a></p>{% end %}
-    {% if page.later %}<p><span class="dim">later</span> <a href="{{ page.later.url }}">{{ page.later.title }}</a></p>{% end %}
+    {% if page.prev %}<p><span class="dim">prev</span> <a href="{{ page.prev.url }}">{{ page.prev.title }}</a></p>{% end %}
+    {% if page.next %}<p><span class="dim">next</span> <a href="{{ page.next.url }}">{{ page.next.title }}</a></p>{% end %}
   </div>
   {% end %}
 
