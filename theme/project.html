@@ -1,39 +1,37 @@
 {% extend "base.html" title = page.title + " - " + config.title, description = page.description or config.description %}
 {% let linked = page.posts %}
-<div class="wrap wrap--narrow">
-  <article>
-    <header class="article__header rise">
-      <div class="article__aside">
-        {% if page.extra.status %}<span class="article__project">{{ page.extra.status }}</span>{% end %}
-        {% if page.extra.year %}<span class="article__date">{{ page.extra.year }}</span>{% end %}
-        {% if page.extra.repo %}<a class="article__date" href="{{ page.extra.repo }}" rel="noopener">source</a>{% end %}
-      </div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}</span>
+    <span>{{ config.title }}</span>
+    <span>{% if page.extra.year %}{{ page.extra.year }}{% end %}</span>
+  </div>
 
-      <div class="article__main">
-        <h1>{{ page.title }}</h1>
-        {% if page.extra.stack %}
-        <ul class="stack">{% for s in page.extra.stack %}<li class="pill">{{ s }}</li>{% end %}</ul>
-        {% end %}
-      </div>
-    </header>
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}<p class="lede">{{ page.description }}</p>{% end %}
 
-    <div class="prose rise rise-1">
-      {{ page.content }}
-    </div>
+  {% if page.extra.status or page.extra.repo or page.extra.stack %}
+  <div class="body kv kv--facts">
+    {% if page.extra.status %}<span class="dim">status</span><span>{{ lower(page.extra.status) }}</span>{% end %}
+    {% if page.extra.repo %}<span class="dim">source</span><span><a href="{{ page.extra.repo }}" rel="noopener">{{ page.extra.repo }}</a></span>{% end %}
+    {% if page.extra.stack %}<span class="dim">stack</span><span>{% for i, s in page.extra.stack %}{% if i %}, {% end %}{{ s }}{% end %}</span>{% end %}
+  </div>
+  {% end %}
+
+  <article class="body prose">
+    {{ page.content }}
   </article>
 
-  <section class="section section--buildlog rise rise-2">
-    <div class="section-head">
-      <h2>Build log</h2>
-      <span class="rule"></span>
-    </div>
-
+  <div class="sec">BUILD LOG</div>
+  <div class="body">
     {% if linked %}
-    <ul class="post-list">{% for p in linked %}{% include "_post_row.html" post = p %}{% end %}</ul>
-    {% else %}<p class="empty">No posts yet.</p>{% end %}
-  </section>
+    <div class="ls">{% for p in linked %}{% include "_post_row.html" post = p %}{% end %}</div>
+    {% else %}<p class="dim">No posts yet.</p>{% end %}
+  </div>
 
-  <nav class="pager">
-    <a class="prev" href="{{ url("@/projects/_index.md") }}"><span>back</span>All projects</a>
-  </nav>
-</div>
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span>{{ page.extra.slug }}</span>
+    <span><a href="{{ url("@/projects/_index.md") }}">~/projects</a></span>
+  </div>
+</main>

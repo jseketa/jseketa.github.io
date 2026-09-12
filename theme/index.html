@@ -1,65 +1,32 @@
 {% extend "base.html" title = config.title, description = config.description %}
 {% let projects = site.sections.projects %}
 {% let writing = site.sections.writing %}
-{% let oldest = last(writing.pages) %}
+{% let latest = take(writing.pages, 5) %}
+<main class="wrap session">
 
-<div class="wrap">
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls</p>
+  <p class="out nav">
+    <a href="{{ projects.url }}">projects/</a>
+    <a href="{{ writing.url }}">writing/</a>
+    <a href="{{ url("@/about.md") }}">about.txt</a>
+    <a href="{{ url("atom.xml") }}">atom.xml</a>
+  </p>
 
-  <section class="hero rise">
-    <div class="hero__card">
-      <div>
-        <p class="hero__kicker">{{ config.extra.tagline }}</p>
-        <h1 class="hero__title">{{ config.extra.headline }}</h1>
-        <div class="hero__bio">{{ section.content }}</div>
-      </div>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> cat about.txt</p>
+  <div class="out cat">{{ section.content }}</div>
 
-      <ul class="stats">
-        <li>
-          <span class="stats__n">{{ len(projects.pages) }}</span>
-          <span class="stats__label">{{ plural(len(projects.pages), "project") }}</span>
-        </li>
-        <li>
-          <span class="stats__n">{{ len(writing.pages) }}</span>
-          <span class="stats__label">{{ plural(len(writing.pages), "post") }}</span>
-        </li>
-        {% if oldest %}
-        <li>
-          <span class="stats__n">{{ date(oldest.date, "%Y") }}</span>
-          <span class="stats__label">since</span>
-        </li>
-        {% end %}
-      </ul>
-    </div>
-  </section>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls projects/</p>
+  <div class="out kv">
+    {% for p in projects.pages %}
+    <a href="{{ p.url }}">{{ p.extra.slug }}/</a><span class="dim">{{ p.description or "" }}</span>
+    {% end %}
+  </div>
 
-  <section class="section rise rise-1">
-    <div class="section-head">
-      <h2>Projects</h2>
-      <span class="rule"></span>
-      <a class="more" href="{{ projects.url }}">see all</a>
-    </div>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t writing/ | head -{{ len(latest) }}</p>
+  <div class="out ls">
+    {% for p in latest %}{% include "_post_row.html" post = p %}{% end %}
+  </div>
 
-    {% if projects.pages %}
-    <div class="projects rise-group">
-      {% for i, p in take(projects.pages, 3) %}
-        {% include "_project_card.html" project = p, index = i + 1 %}
-      {% end %}
-    </div>
-    {% else %}<p class="empty">No projects yet.</p>{% end %}
-  </section>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> <span class="cur" aria-hidden="true"></span></p>
 
-  <section class="section rise rise-2">
-    <div class="section-head">
-      <h2>Writing</h2>
-      <span class="rule"></span>
-      <a class="more" href="{{ writing.url }}">see all</a>
-    </div>
-
-    {% if writing.pages %}
-    <ul class="post-list">
-      {% for p in take(writing.pages, 4) %}{% include "_post_row.html" post = p %}{% end %}
-    </ul>
-    {% else %}<p class="empty">Nothing here yet.</p>{% end %}
-  </section>
-
-</div>
+</main>

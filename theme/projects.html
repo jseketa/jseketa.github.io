@@ -1,21 +1,25 @@
 {% extend "base.html" title = "Projects - " + config.title, description = "Things I have built, and the notes that came out of them." %}
-<div class="wrap">
-  <section class="section rise">
-    <div class="section-head">
-      <h1>Projects</h1>
-      <span class="rule"></span>
-    </div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>/projects</span>
+    <span>{{ config.title }}</span>
+    <span></span>
+  </div>
 
-    {% if section.content %}
-    <div class="hero__bio hero__bio--lead">{{ section.content }}</div>
-    {% end %}
+  <h1>Projects</h1>
+  {% if section.content %}<div class="lede">{{ section.content }}</div>{% end %}
 
+  <div class="body">
     {% if section.pages %}
-    <div class="projects rise-group">
-      {% for i, p in section.pages %}
-        {% include "_project_card.html" project = p, index = i + 1 %}
-      {% end %}
-    </div>
-    {% else %}<p class="empty">No projects yet.</p>{% end %}
-  </section>
-</div>
+    <dl class="projects">
+      {% for p in section.pages %}{% include "_project_row.html" project = p %}{% end %}
+    </dl>
+    {% else %}<p class="dim">No projects yet.</p>{% end %}
+  </div>
+
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span></span>
+    <span><a href="{{ url("@/_index.md") }}">~</a></span>
+  </div>
+</main>

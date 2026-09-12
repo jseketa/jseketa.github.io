@@ -1,19 +1,28 @@
 {% extend "base.html" title = "Writing - " + config.title, description = "Build logs and notes." %}
-<div class="wrap wrap--narrow">
-  <section class="section rise">
-    <div class="section-head">
-      <h1>Writing</h1>
-      <span class="rule"></span>
-      <a class="more" href="{{ url("tags/") }}">by tag</a>
-    </div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>/writing</span>
+    <span>{{ config.title }}</span>
+    <span></span>
+  </div>
 
-    {% if section.pages %}
-      {% for g in section.years %}
-        <h2 class="year-head">{{ g.year }}</h2>
-        <ul class="post-list">
-          {% for p in g.pages %}{% include "_post_row.html" post = p %}{% end %}
-        </ul>
-      {% end %}
-    {% else %}<p class="empty">Nothing here yet.</p>{% end %}
-  </section>
-</div>
+  <h1>Writing</h1>
+
+  {% if section.pages %}
+    {% for g in section.years %}
+    <div class="sec">{{ g.year }}</div>
+    <div class="body">
+      <div class="ls">{% for p in g.pages %}{% include "_post_row.html" post = p %}{% end %}</div>
+    </div>
+    {% end %}
+  {% else %}<div class="body"><p class="dim">Nothing here yet.</p></div>{% end %}
+
+  <div class="sec">SEE ALSO</div>
+  <div class="body also"><p><a href="{{ url("tags/") }}">~/tags</a> <span class="dim">the same posts, by tag</span></p></div>
+
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span></span>
+    <span><a href="{{ url("@/_index.md") }}">~</a></span>
+  </div>
+</main>

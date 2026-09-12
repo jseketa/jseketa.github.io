@@ -1,32 +1,30 @@
 {% extend "base.html" title = page.title + " - " + config.title, description = page.description or config.description %}
 {% let owner = page.project %}
-<div class="wrap wrap--narrow">
-  <article>
-    <header class="article__header rise">
-      <div class="article__aside">
-        {% if owner %}<a class="article__project" href="{{ owner.url }}">{{ owner.title }}</a>{% end %}
-        <time class="article__date" datetime="{{ page.date }}">{{ date(page.date, "%d %B %Y") }}</time>
-      </div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}</span>
+    <span>{{ config.title }}</span>
+    <span>{% if page.date %}{{ date(page.date, "%Y-%m-%d") }}{% end %}</span>
+  </div>
 
-      <div class="article__main">
-        <h1>{{ page.title }}</h1>
-        {% if page.tags %}
-        <div class="article__tags">
-          {% for t in page.tags %}<a class="pill" href="{{ t.url }}">{{ t.name }}</a>{% end %}
-        </div>
-        {% end %}
-      </div>
-    </header>
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}<p class="lede">{{ page.description }}</p>{% end %}
 
-    <div class="prose rise rise-1">
-      {{ page.content }}
-    </div>
+  <article class="body prose">
+    {{ page.content }}
   </article>
 
   {% if page.earlier or page.later %}
-  <nav class="pager">
-    {% if page.earlier %}<a class="prev" href="{{ page.earlier.url }}"><span>earlier</span>{{ page.earlier.title }}</a>{% end %}
-    {% if page.later %}<a class="next" href="{{ page.later.url }}"><span>later</span>{{ page.later.title }}</a>{% end %}
-  </nav>
+  <div class="sec">SEE ALSO</div>
+  <div class="body also">
+    {% if page.earlier %}<p><span class="dim">earlier</span> <a href="{{ page.earlier.url }}">{{ page.earlier.title }}</a></p>{% end %}
+    {% if page.later %}<p><span class="dim">later</span> <a href="{{ page.later.url }}">{{ page.later.title }}</a></p>{% end %}
+  </div>
   {% end %}
-</div>
+
+  <div class="ftr">
+    <span>{% if owner %}<a href="{{ owner.url }}">{{ owner.extra.slug }}</a>{% else %}seketa.it{% end %}</span>
+    <span>{% for i, t in page.tags %}{% if i %}, {% end %}<a href="{{ t.url }}">{{ t.name }}</a>{% end %}</span>
+    <span><a href="{{ url("@/writing/_index.md") }}">~/writing</a></span>
+  </div>
+</main>

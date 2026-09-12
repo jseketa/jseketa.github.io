@@ -1,18 +1,24 @@
 {% extend "base.html" title = "Tags - " + config.title, description = "Browse writing by tag." %}
-<div class="wrap wrap--narrow">
-  <section class="section rise">
-    <div class="section-head">
-      <h1>Tags</h1>
-      <span class="rule"></span>
-      <a class="more" href="{{ url("@/writing/_index.md") }}">all posts</a>
-    </div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>/tags</span>
+    <span>{{ config.title }}</span>
+    <span></span>
+  </div>
 
+  <h1>Tags</h1>
+
+  <div class="body">
     {% if site.tags %}
-    <ul class="tag-cloud">
-      {% for t in site.tags %}
-      <li><a class="pill" href="{{ t.url }}">{{ t.name }} <span class="count">{{ len(t.pages) }}</span></a></li>
-      {% end %}
-    </ul>
-    {% else %}<p class="empty">No tags yet.</p>{% end %}
-  </section>
-</div>
+    <div class="ls ls--tags">
+      {% for t in site.tags %}<span class="d">{{ len(t.pages) }} {{ plural(len(t.pages), "post") }}</span><a href="{{ t.url }}">{{ t.name }}</a>{% end %}
+    </div>
+    {% else %}<p class="dim">No tags yet.</p>{% end %}
+  </div>
+
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span></span>
+    <span><a href="{{ url("@/writing/_index.md") }}">~/writing</a></span>
+  </div>
+</main>

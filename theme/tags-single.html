@@ -1,11 +1,20 @@
 {% extend "base.html" title = term.name + " - " + config.title, description = "Posts tagged " + term.name + "." %}
-<div class="wrap wrap--narrow">
-  <section class="section rise">
-    <div class="section-head">
-      <h1>{{ term.name }}</h1>
-      <span class="rule"></span>
-      <a class="more" href="{{ url("tags/") }}">all tags</a>
-    </div>
-    <ul class="post-list">{% for p in term.pages %}{% include "_post_row.html" post = p %}{% end %}</ul>
-  </section>
-</div>
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/_index.md") }}">~</a>/tags/{{ term.name }}</span>
+    <span>{{ config.title }}</span>
+    <span></span>
+  </div>
+
+  <h1>{{ term.name }}</h1>
+
+  <div class="body">
+    <div class="ls">{% for p in term.pages %}{% include "_post_row.html" post = p %}{% end %}</div>
+  </div>
+
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span></span>
+    <span><a href="{{ url("tags/") }}">~/tags</a></span>
+  </div>
+</main>
