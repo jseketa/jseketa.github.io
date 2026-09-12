@@ -11,11 +11,11 @@
   {% if page.description %}<p class="lede">{{ page.description }}</p>{% end %}
 
   {% if page.extra.status or page.extra.repo or page.extra.stack %}
-  <div class="body kv kv--facts">
-    {% if page.extra.status %}<span class="dim">status</span><span>{{ lower(page.extra.status) }}</span>{% end %}
-    {% if page.extra.repo %}<span class="dim">source</span><span><a href="{{ page.extra.repo }}" rel="noopener">{{ page.extra.repo }}</a></span>{% end %}
-    {% if page.extra.stack %}<span class="dim">stack</span><span>{% for i, s in page.extra.stack %}{% if i %}, {% end %}{{ s }}{% end %}</span>{% end %}
-  </div>
+  <dl class="body kv kv--facts">
+    {% if page.extra.status %}<dt>status</dt> <dd>{{ lower(page.extra.status) }}</dd>{% end %}
+    {% if page.extra.repo %}<dt>source</dt> <dd><a href="{{ page.extra.repo }}" rel="noopener">{{ page.extra.repo }}</a></dd>{% end %}
+    {% if page.extra.stack %}<dt>stack</dt> <dd>{% for i, s in page.extra.stack %}{% if i %}, {% end %}{{ s }}{% end %}</dd>{% end %}
+  </dl>
   {% end %}
 
   <article class="body prose">

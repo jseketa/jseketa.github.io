@@ -364,6 +364,8 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .also p { margin: 0 0 .3rem; font-family: var(--mono); font-size: 14px; }
 
 .kv--facts { margin-bottom: 1.4rem; }
+.kv--facts dt { color: var(--dim); }
+.kv--facts dd { margin: 0; }
 
 // Projects index: name, then description hanging under it.
 .projects { margin: 0; }

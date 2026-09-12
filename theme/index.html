@@ -18,7 +18,7 @@
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls projects/</p>
   <div class="out kv">
     {% for p in projects.pages %}
-    <a href="{{ p.url }}">{{ p.extra.slug }}/</a><span class="dim">{{ p.description or "" }}</span>
+    <a href="{{ p.url }}">{{ p.extra.slug }}/</a> <span class="dim">{{ p.description or "" }}</span>
     {% end %}
   </div>
 

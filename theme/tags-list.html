@@ -11,7 +11,8 @@
   <div class="body">
     {% if site.tags %}
     <div class="ls ls--tags">
-      {% for t in site.tags %}<span class="d">{{ len(t.pages) }} {{ plural(len(t.pages), "post") }}</span><a href="{{ t.url }}">{{ t.name }}</a>{% end %}
+      {% for t in site.tags %}<span class="d">{{ len(t.pages) }} {{ plural(len(t.pages), "post") }}</span> <a href="{{ t.url }}">{{ t.name }}</a>
+      {% end %}
     </div>
     {% else %}<p class="dim">No tags yet.</p>{% end %}
   </div>
