@@ -493,19 +493,20 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .code__file { color: var(--code-fg); }
 .code__label { margin-left: auto; text-transform: uppercase; letter-spacing: .1em; }
 
-// Syntax highlighting, on the scope classes press emits. The palette is
-// the theme's, so code is paper by day and amber by night.
-.prose pre .comment, .prose pre .punctuation.definition.comment { color: var(--code-dim); font-style: italic; }
-.prose pre .keyword, .prose pre .storage.modifier { color: var(--code-kw); }
-.prose pre .storage.type, .prose pre .support.type { color: var(--code-fg); font-weight: 500; }
-.prose pre .string { color: var(--code-str); }
-.prose pre .constant, .prose pre .constant.numeric { color: var(--code-const); }
-.prose pre .entity.name.function, .prose pre .support.function, .prose pre .meta.function-call .variable.function { color: var(--code-fn); font-weight: 500; }
-.prose pre .meta.preprocessor, .prose pre .keyword.control.import { color: var(--code-pre); }
-.prose pre .keyword.operator, .prose pre .punctuation { color: var(--code-fg); }
-.prose pre .variable.parameter { color: var(--code-fg); }
-.prose pre .entity.name.tag { color: var(--code-kw); }
-.prose pre .entity.other.attribute-name { color: var(--code-str); }
+// Syntax highlighting, on the scope classes press emits (prefixed s-, so
+// a scope word can never collide with a class of this sheet). The palette
+// is the theme's, so code follows paper, amber and the rest.
+.prose pre .s-comment, .prose pre .s-punctuation.s-definition.s-comment { color: var(--code-dim); font-style: italic; }
+.prose pre .s-keyword, .prose pre .s-storage.s-modifier { color: var(--code-kw); }
+.prose pre .s-storage.s-type, .prose pre .s-support.s-type { color: var(--code-fg); font-weight: 500; }
+.prose pre .s-string { color: var(--code-str); }
+.prose pre .s-constant, .prose pre .s-constant.s-numeric { color: var(--code-const); }
+.prose pre .s-entity.s-name.s-function, .prose pre .s-support.s-function, .prose pre .s-meta.s-function-call .s-variable.s-function { color: var(--code-fn); font-weight: 500; }
+.prose pre .s-meta.s-preprocessor, .prose pre .s-keyword.s-control.s-import { color: var(--code-pre); }
+.prose pre .s-keyword.s-operator, .prose pre .s-punctuation { color: var(--code-fg); }
+.prose pre .s-variable.s-parameter { color: var(--code-fg); }
+.prose pre .s-entity.s-name.s-tag { color: var(--code-kw); }
+.prose pre .s-entity.s-other.s-attribute-name { color: var(--code-str); }
 
 // Callouts from the note fence.
 .note {

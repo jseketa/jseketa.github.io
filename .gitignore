@@ -2,8 +2,6 @@
 /public-press/
 /.press-cache/
 
-# The last Go press build, kept as the reference for press's acceptance test.
-/public-go/
 
 # Editor / OS noise
 .DS_Store
