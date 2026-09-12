@@ -14,6 +14,12 @@
     {{ page.content }}
   </article>
 
+  {% if page.extra.present %}
+  <div class="sec">PRESENT</div>
+  <div class="body also"><p><a href="?present" data-present>present</a> <span class="dim">this article as slides: arrows to move, Esc to leave</span></p></div>
+  <script src="{{ url("js/present.js") }}" defer></script>
+  {% end %}
+
   {% if page.earlier or page.later %}
   <div class="sec">SEE ALSO</div>
   <div class="body also">
