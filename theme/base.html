@@ -27,6 +27,14 @@
 </head>
 <body>
 
+<div class="topbar wrap">
+  <button class="theme-toggle" type="button" data-theme-toggle title="Switch between paper and amber" aria-label="Switch theme">
+    <span class="theme-toggle__key">theme</span>
+    <span class="theme-toggle__opt theme-toggle__opt--paper">paper</span>
+    <span class="theme-toggle__opt theme-toggle__opt--amber">amber</span>
+  </button>
+</div>
+
 {% yield %}
 
 <footer class="foot wrap">
@@ -36,7 +44,6 @@
     <a href="https://linkedin.com/in/{{ config.extra.linkedin }}" rel="me noopener">linkedin</a>
     <a href="mailto:{{ config.extra.email }}">email</a>
     <a href="{{ url("atom.xml") }}">rss</a>
-    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch between paper and amber" title="Switch theme"></button>
   </span>
 </footer>
 

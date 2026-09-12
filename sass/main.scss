@@ -666,29 +666,68 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .foot a { color: var(--dim); margin-left: 12px; }
 .foot a:hover { color: var(--hi); }
 
-// The toggle is a word, not an icon: it names the theme it would switch to.
+// ---------------------------------------------------------------------------
+// Theme switch, top right of every page: `theme [paper] amber`. Both
+// options are always visible and the current one is bracketed, so it
+// reads as a setting, not a link. One click flips it (js/theme.js).
+// ---------------------------------------------------------------------------
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: .9rem;
+}
+
 .theme-toggle {
-  margin-left: 12px;
-  padding: 0;
-  border: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: .55em;
+  margin: 0;
+  padding: .25rem .5rem;
+  border: 1px solid var(--rule);
   background: none;
-  font: inherit;
+  font: 500 12.5px/1.4 var(--mono);
+  letter-spacing: .02em;
   color: var(--dim);
   cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--accent);
 }
 
-.theme-toggle:hover { color: var(--hi); }
-.theme-toggle::before { content: "amber"; }
+.theme-toggle:hover { border-color: var(--accent); color: var(--mid); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.theme-toggle__key { color: var(--dim); }
+.theme-toggle__key::after { content: ":"; }
+
+.theme-toggle__opt::before { content: "\00a0"; }
+.theme-toggle__opt::after { content: "\00a0"; }
+
+// The active option: bracketed, in the accent.
+.theme-toggle__opt--paper { color: var(--accent); }
+.theme-toggle__opt--paper::before { content: "["; }
+.theme-toggle__opt--paper::after { content: "]"; }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle::before { content: "paper"; }
+  :root:not([data-theme="light"]) .theme-toggle__opt--paper { color: var(--dim); }
+  :root:not([data-theme="light"]) .theme-toggle__opt--paper::before,
+  :root:not([data-theme="light"]) .theme-toggle__opt--paper::after { content: "\00a0"; }
+  :root:not([data-theme="light"]) .theme-toggle__opt--amber { color: var(--accent); }
+  :root:not([data-theme="light"]) .theme-toggle__opt--amber::before { content: "["; }
+  :root:not([data-theme="light"]) .theme-toggle__opt--amber::after { content: "]"; }
 }
 
-:root[data-theme="dark"] .theme-toggle::before { content: "paper"; }
-:root[data-theme="light"] .theme-toggle::before { content: "amber"; }
+:root[data-theme="dark"] .theme-toggle__opt--paper { color: var(--dim); }
+:root[data-theme="dark"] .theme-toggle__opt--paper::before,
+:root[data-theme="dark"] .theme-toggle__opt--paper::after { content: "\00a0"; }
+:root[data-theme="dark"] .theme-toggle__opt--amber { color: var(--accent); }
+:root[data-theme="dark"] .theme-toggle__opt--amber::before { content: "["; }
+:root[data-theme="dark"] .theme-toggle__opt--amber::after { content: "]"; }
+
+:root[data-theme="light"] .theme-toggle__opt--paper { color: var(--accent); }
+:root[data-theme="light"] .theme-toggle__opt--paper::before { content: "["; }
+:root[data-theme="light"] .theme-toggle__opt--paper::after { content: "]"; }
+:root[data-theme="light"] .theme-toggle__opt--amber { color: var(--dim); }
+:root[data-theme="light"] .theme-toggle__opt--amber::before,
+:root[data-theme="light"] .theme-toggle__opt--amber::after { content: "\00a0"; }
 
 // ---------------------------------------------------------------------------
 // Narrow screens: nothing hangs, listings stack.
