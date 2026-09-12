@@ -1,2 +1,13 @@
-# ignore run script
+# press build output and render cache; the site is built locally, never committed.
+/public-press/
+/.press-cache/
+
+# The last Go press build, kept as the reference for press's acceptance test.
+/public-go/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+
+# Local run scripts
 *.ps1

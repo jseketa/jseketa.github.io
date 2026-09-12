@@ -1,0 +1,16 @@
+// What the scraper collected. Mermaid equivalent: erDiagram.
+digraph er {
+  rankdir=LR;
+  bgcolor="transparent";
+  ranksep=0.8;
+
+  node [shape=record, fontname="sans-serif", fontsize=11];
+  edge [fontname="monospace", fontsize=9, arrowsize=0.7];
+
+  Player   [label="{PLAYER|id\l}"];
+  Account  [label="{ACCOUNT|id\lserver\l}"];
+  Universe [label="{UNIVERSE|name\llanguage\lplayerCount\l}"];
+
+  Player  -> Account  [label="owns 1..n"];
+  Account -> Universe [label="lives in"];
+}

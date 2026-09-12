@@ -1,0 +1,15 @@
+;; The 8-bit SWD request packet, LSB first on the wire.
+;; Rendered by build-diagrams.sh into static/diagrams/swd-request.svg.
+(def boxes-per-row 8)
+(def box-width 64)
+(def row-height 34)
+
+(draw-column-headers)
+(draw-box "Start")
+(draw-box "APnDP")
+(draw-box "RnW")
+(draw-box "A[2]")
+(draw-box "A[3]")
+(draw-box "Parity")
+(draw-box "Stop")
+(draw-box "Park")

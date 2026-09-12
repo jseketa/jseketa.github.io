@@ -1,0 +1,17 @@
+// How the site got rebuilt. Mermaid equivalent: gitGraph.
+digraph rebuild {
+  rankdir=LR;
+  bgcolor="transparent";
+  ranksep=0.45;
+
+  node [shape=circle, width=0.22, height=0.22, label="",
+        style=filled, fontname="monospace", fontsize=9];
+  edge [arrowsize=0.6];
+
+  c1 -> c2 -> c3 -> c4;
+
+  c1 [xlabel="jekyll"];
+  c2 [xlabel="port content"];
+  c3 [xlabel="workshop design"];
+  c4 [xlabel="diagrams"];
+}

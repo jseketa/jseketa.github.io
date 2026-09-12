@@ -1,0 +1,51 @@
+# Builds the site with press (github.com/jseketa/press) and publishes it to
+# GitHub Pages on every push to master. press is built from source here;
+# the cargo cache makes that a few seconds after the first run.
+name: deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jseketa/press
+          path: press
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: press
+      # Graphviz draws the build-time diagrams; node (preinstalled) runs
+      # npx bytefield-svg.
+      - run: sudo apt-get update -q && sudo apt-get install -y --no-install-recommends graphviz
+      - run: cargo build --release --locked -p press --manifest-path press/Cargo.toml
+      - run: press/target/release/press -site . -out public-press
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public-press
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

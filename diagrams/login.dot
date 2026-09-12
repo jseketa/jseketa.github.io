@@ -1,0 +1,27 @@
+// The OGame two-stage login. Rendered by build-diagrams.sh into
+// static/diagrams/login.svg. Carries no colours: the SVG is styled by CSS in
+// main.scss so it follows the site palette and the light/dark toggle.
+digraph login {
+  rankdir=LR;
+  bgcolor="transparent";
+  ranksep=0.75;
+  nodesep=0.45;
+
+  node [shape=box, style="rounded", fontname="sans-serif", fontsize=13,
+        margin="0.25,0.16", height=0.5];
+  edge [fontname="monospace", fontsize=10, arrowsize=0.8];
+
+  post [label="POST\ncredentials"];
+  ok   [label="200 OK\nbearer token"];
+  bad  [label="403 Forbidden", class="dead"];
+  acct [label="GET accounts\nfor this player"];
+
+  // The two outcomes sit on one rank, so the fork reads as a fork.
+  { rank=same; ok; bad }
+
+  // weight straightens the path that matters; constraint=false keeps the
+  // dead end from dragging the layout around.
+  post -> ok   [label="valid", weight=10];
+  post -> bad  [label="invalid", class="dead", constraint=false];
+  ok:e -> acct:w;
+}

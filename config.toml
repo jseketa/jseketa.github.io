@@ -1,0 +1,29 @@
+base_url = "https://seketa.it"
+title = "Josip Seketa"
+description = "Build logs from a backend developer - Node.js, Go, microservices, and the occasional microcontroller."
+default_language = "en"
+
+build_search_index = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+taxonomies = [
+    { name = "tags", feed = true },
+]
+
+[markdown]
+smart_punctuation = true
+render_emoji = false
+
+# Code slabs are dark in both site themes, so highlighting is dark-only - a
+# light syntax theme would put dark text on a dark slab.
+[markdown.highlighting]
+style = "class"
+theme = "base16-eighties.dark"
+
+[extra]
+tagline = "Backend developer"
+headline = "Notes from the workbench"
+github = "jseketa"
+linkedin = "jseketa"
+email = "jseketa@gmail.com"

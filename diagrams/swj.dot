@@ -1,0 +1,21 @@
+// The SWJ-DP state machine. Mermaid equivalent: stateDiagram-v2.
+digraph swj {
+  rankdir=TB;
+  bgcolor="transparent";
+  ranksep=0.5;
+  nodesep=0.4;
+
+  node [shape=box, style="rounded", fontname="sans-serif", fontsize=12,
+        margin="0.22,0.13", height=0.42];
+  edge [fontname="monospace", fontsize=9, arrowsize=0.7];
+
+  start [shape=circle, width=0.16, height=0.16, label="", style=filled, class="pip"];
+
+  start -> JTAG [label="power-up"];
+  JTAG  -> SWD  [label="0xE79E"];
+  SWD   -> JTAG [label="0xE73C"];
+  SWD   -> Locked [label="SWJ_CFG=100", class="dead"];
+  Locked -> SWD [label="BOOT0 + reset", style=dashed];
+
+  Locked [class="dead"];
+}

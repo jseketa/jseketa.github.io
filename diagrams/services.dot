@@ -1,0 +1,17 @@
+// Service inheritance. Mermaid equivalent: classDiagram.
+digraph services {
+  rankdir=TB;
+  bgcolor="transparent";
+  ranksep=0.55;
+  nodesep=0.5;
+
+  node [shape=record, fontname="sans-serif", fontsize=11];
+  edge [arrowhead=empty, arrowsize=0.9];
+
+  Service [label="{Service|+ name : String\l+ port : Number\l|+ start()\l}"];
+  Universe [label="{UniverseService|+ exists(name, lang)\l}"];
+  Account  [label="{AccountService|+ listForPlayer(token)\l}"];
+
+  Universe -> Service;
+  Account  -> Service;
+}
