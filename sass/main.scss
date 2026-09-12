@@ -46,13 +46,17 @@
 }
 
 // ---------------------------------------------------------------------------
-// Tokens - paper by day, amber phosphor by night.
+// Tokens. A theme is one mixin setting the same twenty names; paper is the
+// default, amber the default in the dark, and any of the five can be picked
+// by hand (data-theme on <html>, written by js/theme.js).
 //
-// The names are shared with wavedrom-init.js and the diagram rules below, so
-// a diagram follows the theme without knowing which one it is in.
+// The names are shared with wavedrom-init.js, mermaid-config.js and the
+// diagram rules below, so a diagram follows the theme without knowing
+// which one it is in.
 // ---------------------------------------------------------------------------
 
-:root {
+// Warm off-white, ink, rust for the prompt and the underlines.
+@mixin paper {
   --bg:        #f8f3ea;
   --surf:      #efe8da;
   --ink:       #1d1912;
@@ -73,42 +77,34 @@
   --code-fn:   #1d1912;
   --code-const:#4a6a8a;
   --code-pre:  #5f5546;
-
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
-  --body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --display: var(--body);
-
-  --measure: 78ch;
-  --wrap: 960px;
-  --hang: 4.2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:        #15110b;
-    --surf:      #1c160e;
-    --ink:       #e6a04a;
-    --hi:        #f6d9a8;
-    --mid:       #b98a4a;
-    --dim:       #9a7a4c;
-    --rule:      #3b2f1e;
-    --hair:      #2a2116;
-    --accent:    #f6d9a8;
-    --accent-2:  #b98a4a;
-    --on-accent: #15110b;
+// Cool datasheet white with a blue accent.
+@mixin snow {
+  --bg:        #f4f4f1;
+  --surf:      #e9e9e4;
+  --ink:       #1b1c1e;
+  --hi:        #000000;
+  --mid:       #4f5257;
+  --dim:       #7c8087;
+  --rule:      #d0d2cc;
+  --hair:      #e0e2dc;
+  --accent:    #1f5fa8;
+  --accent-2:  #3a7bd5;
+  --on-accent: #ffffff;
 
-    --code:      #1c160e;
-    --code-fg:   #f6d9a8;
-    --code-dim:  #9a7a4c;
-    --code-kw:   #f6d9a8;
-    --code-str:  #c9924a;
-    --code-fn:   #e6a04a;
-    --code-const:#f0c98a;
-    --code-pre:  #b98a4a;
-  }
+  --code:      #e9e9e4;
+  --code-fg:   #1b1c1e;
+  --code-dim:  #7c8087;
+  --code-kw:   #1f5fa8;
+  --code-str:  #7a3e10;
+  --code-fn:   #1b1c1e;
+  --code-const:#8a3a6e;
+  --code-pre:  #4f5257;
 }
 
-:root[data-theme="dark"] {
+// Amber phosphor on warm black.
+@mixin amber {
   --bg:        #15110b;
   --surf:      #1c160e;
   --ink:       #e6a04a;
@@ -130,6 +126,76 @@
   --code-const:#f0c98a;
   --code-pre:  #b98a4a;
 }
+
+// P1 green phosphor; the ground goes slightly cool to match.
+@mixin green {
+  --bg:        #0c120e;
+  --surf:      #111a14;
+  --ink:       #7fd48a;
+  --hi:        #c4f2c8;
+  --mid:       #6fb079;
+  --dim:       #4f8a58;
+  --rule:      #22362a;
+  --hair:      #182619;
+  --accent:    #c4f2c8;
+  --accent-2:  #6fb079;
+  --on-accent: #0c120e;
+
+  --code:      #111a14;
+  --code-fg:   #c4f2c8;
+  --code-dim:  #4f8a58;
+  --code-kw:   #c4f2c8;
+  --code-str:  #b9e08a;
+  --code-fn:   #7fd48a;
+  --code-const:#d8f0a8;
+  --code-pre:  #6fb079;
+}
+
+// P4 white phosphor on charcoal: monochrome, so code is shaded, not coloured.
+@mixin white {
+  --bg:        #111214;
+  --surf:      #191a1d;
+  --ink:       #d6d8da;
+  --hi:        #ffffff;
+  --mid:       #a9adb3;
+  --dim:       #7a7f86;
+  --rule:      #33363b;
+  --hair:      #26282c;
+  --accent:    #ffffff;
+  --accent-2:  #a9adb3;
+  --on-accent: #111214;
+
+  --code:      #191a1d;
+  --code-fg:   #ffffff;
+  --code-dim:  #7a7f86;
+  --code-kw:   #ffffff;
+  --code-str:  #c9ccd0;
+  --code-fn:   #d6d8da;
+  --code-const:#e6e8ea;
+  --code-pre:  #a9adb3;
+}
+
+:root {
+  @include paper;
+
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+  --body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: var(--body);
+
+  --measure: 78ch;
+  --wrap: 960px;
+  --hang: 4.2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { @include amber; }
+}
+
+:root[data-theme="paper"] { @include paper; }
+:root[data-theme="snow"]  { @include snow; }
+:root[data-theme="amber"] { @include amber; }
+:root[data-theme="green"] { @include green; }
+:root[data-theme="white"] { @include white; }
 
 // ---------------------------------------------------------------------------
 // Base
@@ -249,6 +315,10 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   font-size: 13px;
   color: var(--dim);
 }
+
+// The picker sits in the header line's right cell, so the line leaves it
+// that much room.
+.hdr { padding-right: 16rem; }
 
 .hdr a, .ftr a { color: var(--dim); }
 .hdr a:hover, .ftr a:hover { color: var(--hi); }
@@ -667,11 +737,11 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .foot a:hover { color: var(--hi); }
 
 // ---------------------------------------------------------------------------
-// Theme switch: `[paper] amber` in the top right corner. Both options are
-// always visible and the current one is bracketed, so it reads as a
-// setting. It is taken out of the flow and sits on the first line of the
-// page (the prompt on the home page, the header line elsewhere), so it
-// costs no height. One click flips it (js/theme.js).
+// Theme picker: `[paper] snow amber green white` in the top right corner.
+// Every option is always visible and the picked one is bracketed, so it
+// reads as a setting. It is taken out of the flow and sits on the first
+// line of the page (the prompt on the home page, the header line
+// elsewhere), so it costs no height. A click picks (js/theme.js).
 // ---------------------------------------------------------------------------
 
 .topbar {
@@ -685,50 +755,45 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   right: 1.4rem;
   display: inline-flex;
   align-items: baseline;
-  gap: .3em;
+  gap: .1em;
+  font: 500 13px/1.65 var(--mono);
+}
+
+.theme-toggle__opt {
   margin: 0;
   padding: 0;
   border: 0;
   background: none;
-  font: 500 13px/1.65 var(--mono);
+  font: inherit;
   color: var(--dim);
   cursor: pointer;
 }
 
-.theme-toggle:hover .theme-toggle__opt { color: var(--mid); }
-.theme-toggle:hover .theme-toggle__opt--paper, .theme-toggle:hover .theme-toggle__opt--amber { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent); }
-.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
 .theme-toggle__opt::before { content: "\00a0"; }
 .theme-toggle__opt::after { content: "\00a0"; }
+.theme-toggle__opt:hover { color: var(--mid); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent); }
+.theme-toggle__opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-// The active option: bracketed, in the accent.
-.theme-toggle__opt--paper { color: var(--accent); }
-.theme-toggle__opt--paper::before { content: "["; }
-.theme-toggle__opt--paper::after { content: "]"; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle__opt--paper { color: var(--dim); }
-  :root:not([data-theme="light"]) .theme-toggle__opt--paper::before,
-  :root:not([data-theme="light"]) .theme-toggle__opt--paper::after { content: "\00a0"; }
-  :root:not([data-theme="light"]) .theme-toggle__opt--amber { color: var(--accent); }
-  :root:not([data-theme="light"]) .theme-toggle__opt--amber::before { content: "["; }
-  :root:not([data-theme="light"]) .theme-toggle__opt--amber::after { content: "]"; }
+// The picked option: bracketed, in the accent.
+@mixin picked {
+  color: var(--accent);
+  &::before { content: "["; }
+  &::after { content: "]"; }
 }
 
-:root[data-theme="dark"] .theme-toggle__opt--paper { color: var(--dim); }
-:root[data-theme="dark"] .theme-toggle__opt--paper::before,
-:root[data-theme="dark"] .theme-toggle__opt--paper::after { content: "\00a0"; }
-:root[data-theme="dark"] .theme-toggle__opt--amber { color: var(--accent); }
-:root[data-theme="dark"] .theme-toggle__opt--amber::before { content: "["; }
-:root[data-theme="dark"] .theme-toggle__opt--amber::after { content: "]"; }
+@media not (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle__opt--paper { @include picked; }
+}
 
-:root[data-theme="light"] .theme-toggle__opt--paper { color: var(--accent); }
-:root[data-theme="light"] .theme-toggle__opt--paper::before { content: "["; }
-:root[data-theme="light"] .theme-toggle__opt--paper::after { content: "]"; }
-:root[data-theme="light"] .theme-toggle__opt--amber { color: var(--dim); }
-:root[data-theme="light"] .theme-toggle__opt--amber::before,
-:root[data-theme="light"] .theme-toggle__opt--amber::after { content: "\00a0"; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle__opt--amber { @include picked; }
+}
+
+:root[data-theme="paper"] .theme-toggle__opt--paper { @include picked; }
+:root[data-theme="snow"]  .theme-toggle__opt--snow  { @include picked; }
+:root[data-theme="amber"] .theme-toggle__opt--amber { @include picked; }
+:root[data-theme="green"] .theme-toggle__opt--green { @include picked; }
+:root[data-theme="white"] .theme-toggle__opt--white { @include picked; }
 
 // ---------------------------------------------------------------------------
 // Narrow screens: nothing hangs, listings stack.
@@ -736,6 +801,11 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 
 @media (max-width: 700px) {
   :root { --hang: 0rem; }
+
+  // No corner to sit in: the picker becomes a line of its own.
+  .topbar { height: auto; }
+  .theme-toggle { position: static; display: flex; justify-content: flex-end; padding-top: .8rem; }
+  .hdr { padding-right: 0; }
 
   .kv { grid-template-columns: 1fr; gap: 0; }
   .kv a { margin-top: .5rem; }

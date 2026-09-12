@@ -16,7 +16,9 @@
     (function () {
       var t = null;
       try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t === 'dark' || t === 'light') {
+      if (t === 'light') t = 'paper';
+      if (t === 'dark') t = 'amber';
+      if (t && /^(paper|snow|amber|green|white)$/.test(t)) {
         document.documentElement.setAttribute('data-theme', t);
       }
     })();
@@ -28,10 +30,13 @@
 <body>
 
 <div class="topbar wrap">
-  <button class="theme-toggle" type="button" data-theme-toggle title="Switch between paper and amber" aria-label="Switch theme">
-    <span class="theme-toggle__opt theme-toggle__opt--paper">paper</span>
-    <span class="theme-toggle__opt theme-toggle__opt--amber">amber</span>
-  </button>
+  <span class="theme-toggle" role="group" aria-label="Theme">
+    <button type="button" class="theme-toggle__opt theme-toggle__opt--paper" data-theme-set="paper">paper</button>
+    <button type="button" class="theme-toggle__opt theme-toggle__opt--snow" data-theme-set="snow">snow</button>
+    <button type="button" class="theme-toggle__opt theme-toggle__opt--amber" data-theme-set="amber">amber</button>
+    <button type="button" class="theme-toggle__opt theme-toggle__opt--green" data-theme-set="green">green</button>
+    <button type="button" class="theme-toggle__opt theme-toggle__opt--white" data-theme-set="white">white</button>
+  </span>
 </div>
 
 {% yield %}

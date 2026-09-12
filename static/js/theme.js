@@ -1,25 +1,18 @@
-// Light / dark toggle. The initial state is applied by an inline script in
-// <head> so there is no flash before paint, and the button icons are swapped
-// by CSS - so this only has to record the choice.
+// Theme picker. The initial theme is applied by an inline script in <head>
+// so there is no flash before paint, and the picked option is bracketed by
+// CSS - so this only has to record the choice.
 (function () {
   'use strict';
 
   var root = document.documentElement;
-  var button = document.querySelector('[data-theme-toggle]');
-  if (!button) return;
+  var buttons = document.querySelectorAll('[data-theme-set]');
 
-  var media = window.matchMedia('(prefers-color-scheme: dark)');
-
-  function current() {
-    var set = root.getAttribute('data-theme');
-    if (set === 'dark' || set === 'light') return set;
-    return media.matches ? 'dark' : 'light';
-  }
-
-  button.addEventListener('click', function () {
-    var next = current() === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch (e) {}
+  Array.prototype.forEach.call(buttons, function (button) {
+    button.addEventListener('click', function () {
+      var name = button.getAttribute('data-theme-set');
+      root.setAttribute('data-theme', name);
+      try { localStorage.setItem('theme', name); } catch (e) {}
+    });
   });
 })();
 
