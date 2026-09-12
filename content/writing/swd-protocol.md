@@ -64,7 +64,7 @@ Drawn out, one whole read looks like this:
 }
 ```
 
-### Bit-banging it
+### Line states
 
 Two more line states matter:
 
@@ -72,6 +72,8 @@ Two more line states matter:
   the debug port into a known state, and is how every session starts.
 - **Idle** --- clocks with SWDIO low. The target needs these to finish posted
   work, which turns out to matter more than it sounds like it should.
+
+### Bit-banging it
 
 Bit-banging the physical layer is two functions:
 
