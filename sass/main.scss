@@ -827,8 +827,20 @@ body.presenting .slide.current {
 
 // flex-shrink 0: a slide that overflows scrolls as a whole instead of
 // squashing whichever child has its own scroll box (the table wrapper).
-body.presenting .slide.current > * { max-width: 44ch; flex-shrink: 0; }
+body.presenting .slide.current > * { max-width: 70ch; flex-shrink: 0; }
 body.presenting .slide.current table { font-size: .72em; }
+
+// The section a sub-slide belongs to, as a label above its heading;
+// present.js adds it, and it is nothing while reading.
+.slide__section { display: none; }
+body.presenting .slide.current .slide__section {
+  display: block;
+  font: 500 .55em var(--mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 0 0 .8em;
+}
 body.presenting .slide.current > pre,
 body.presenting .slide.current > .code,
 body.presenting .slide.current > .diagram,
@@ -842,7 +854,8 @@ body.presenting .slide--title.current h1 {
 
 body.presenting .slide--title.current .lede { font-size: 1.15em; margin: 0; }
 
-body.presenting .slide.current h2 {
+body.presenting .slide.current h2,
+body.presenting .slide.current h3 {
   font-family: var(--body);
   font-weight: 600;
   font-size: clamp(1.5rem, 3.6vw, 2.8rem);

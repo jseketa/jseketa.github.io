@@ -44,6 +44,8 @@ SWCLK is always driven by the host. SWDIO is bidirectional, and both ends
 follow the same rule: drive SWDIO on the falling edge of SWCLK, sample it on
 the rising edge.
 
+### Turnaround
+
 Because one line carries both directions, there has to be a moment where
 nobody drives it while ownership changes. That is the **turnaround** period,
 one clock cycle by default, and it happens twice in every transaction: after
@@ -61,6 +63,8 @@ Drawn out, one whole read looks like this:
 "config": { "skin": "narrow" }
 }
 ```
+
+### Bit-banging it
 
 Two more line states matter:
 
@@ -122,6 +126,8 @@ Everything after the handshake has the same shape: an 8-bit request from the
 host, a 3-bit acknowledgement from the target, and a 33-bit data phase, with a
 turnaround cycle either side of the acknowledgement.
 
+### The request
+
 The request, again LSB first:
 
 | Bit | Name   | Meaning                         |
@@ -139,6 +145,8 @@ Or as it sits on the wire:
 
 ```bytefield src=swd-request caption="The 8-bit request, least significant bit first."
 ```
+
+### Building it
 
 Only two address bits, because the register space is deliberately tiny. The
 `SELECT` register does the rest of the addressing. Building a request is four
@@ -161,6 +169,8 @@ static uint8_t swd_request(int ap, int read, uint8_t addr)
 	     | (1      << 7);  /* park */
 }
 ```
+
+### The acknowledgement and the data
 
 The acknowledgement is three bits, LSB first:
 

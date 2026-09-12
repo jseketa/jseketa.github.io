@@ -14,7 +14,10 @@
   function wrap(nodes, cls) {
     var s = document.createElement('section');
     s.className = 'slide' + (cls ? ' ' + cls : '');
-    nodes[0].parentNode.insertBefore(s, nodes[0]);
+    // The section label is created detached, so anchor on a node that is
+    // in the document.
+    var anchor = nodes.filter(function (n) { return n.parentNode; })[0];
+    anchor.parentNode.insertBefore(s, anchor);
     nodes.forEach(function (n) { s.appendChild(n); });
     return s;
   }
@@ -24,11 +27,21 @@
   var lede = man.querySelector('.lede');
   wrap(lede ? [h1, lede] : [h1], 'slide--title');
 
-  // One slide per h2; whatever comes before the first h2 is a slide of its own.
-  var groups = [], group = [];
+  // A slide per h2 and per h3 (a sub-heading is how a long section is
+  // broken for the screen without changing how it reads); whatever comes
+  // before the first heading is a slide of its own. An h3 slide carries
+  // its section's name as a label.
+  var groups = [], group = [], section = null;
   Array.prototype.slice.call(prose.childNodes).forEach(function (n) {
     if (n.nodeType === 3 && !n.textContent.trim()) return;
-    if (n.nodeType === 1 && n.tagName === 'H2' && group.length) { groups.push(group); group = []; }
+    if (n.nodeType === 1 && (n.tagName === 'H2' || n.tagName === 'H3') && group.length) { groups.push(group); group = []; }
+    if (n.nodeType === 1 && n.tagName === 'H2') section = n.textContent;
+    if (n.nodeType === 1 && n.tagName === 'H3' && section) {
+      var label = document.createElement('p');
+      label.className = 'slide__section';
+      label.textContent = section;
+      group.push(label);
+    }
     group.push(n);
   });
   if (group.length) groups.push(group);
@@ -81,8 +94,12 @@
   document.addEventListener('keydown', function (e) {
     if (!presenting) return;
     var k = e.key;
-    if (k === 'ArrowRight' || k === 'ArrowDown' || k === ' ' || k === 'PageDown') { show(index + 1); e.preventDefault(); }
-    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') { show(index - 1); e.preventDefault(); }
+    // Left/right, space and the clicker's PageUp/PageDown move between
+    // slides; up/down scroll the one on screen, for the dense ones.
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { show(index + 1); e.preventDefault(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { show(index - 1); e.preventDefault(); }
+    else if (k === 'ArrowDown') { slides[index].scrollBy(0, window.innerHeight * 0.6); e.preventDefault(); }
+    else if (k === 'ArrowUp') { slides[index].scrollBy(0, -window.innerHeight * 0.6); e.preventDefault(); }
     else if (k === 'Escape') stop();
   });
 
