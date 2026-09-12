@@ -1,0 +1,40 @@
+{% extend "base.html" title = section.title + " - " + config.title, description = section.description or config.description %}
+<main class="wrap man">
+  <div class="hdr">
+    <span><a href="{{ url("@/info.md") }}">~</a>/{{ section.name }}/{% if section.extra.year %} &middot; {{ section.extra.year }}{% end %}{% if section.extra.status %} &middot; {{ lower(section.extra.status) }}{% end %}</span>
+    <span>{{ config.title }}</span>
+    <span></span>
+  </div>
+
+  <h1>{{ section.title }}</h1>
+  {% if section.description %}<p class="lede">{{ section.description }}</p>{% end %}
+
+  {% if section.content %}
+  <article class="body prose">
+    {{ section.content }}
+  </article>
+  {% end %}
+
+  {% if section.extra.stack %}
+  <div class="sec">STACK</div>
+  <div class="body also"><p>{% for i, s in section.extra.stack %}{% if i %}, {% end %}{{ s }}{% end %}</p></div>
+  {% end %}
+
+  <div class="sec">{% if section.project %}BUILD LOG{% else %}POSTS{% end %}</div>
+  <div class="body">
+    {% if section.pages %}
+    <div class="ls">{% for p in section.pages %}{% include "_post_row.html" post = p %}{% end %}</div>
+    {% else %}<p class="dim">No posts yet.</p>{% end %}
+  </div>
+
+  {% if section.extra.repo %}
+  <div class="sec">SEE ALSO</div>
+  <div class="body also"><p><a href="{{ section.extra.repo }}" rel="noopener">{{ section.extra.repo }}</a> <span class="dim">the source</span></p></div>
+  {% end %}
+
+  <div class="ftr">
+    <span>seketa.it</span>
+    <span>{{ section.name }}</span>
+    <span><a href="{{ url("@/info.md") }}">~</a></span>
+  </div>
+</main>

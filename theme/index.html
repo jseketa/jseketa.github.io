@@ -1,28 +1,27 @@
 {% extend "base.html" title = config.title, description = config.description %}
-{% let projects = site.sections.projects %}
-{% let writing = site.sections.writing %}
-{% let latest = take(writing.pages, 5) %}
+{% let latest = take(site.posts, 5) %}
 <main class="wrap session">
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls</p>
   <p class="out nav">
-    <a href="{{ projects.url }}">projects/</a>
-    <a href="{{ writing.url }}">writing/</a>
-    <a href="{{ url("@/about.md") }}">about.txt</a>
+    {% for p in site.projects %}<a href="{{ p.url }}">{{ p.name }}/</a> {% end %}
+    <a href="{{ site.sections.unsorted.url }}">unsorted/</a>
+    <a href="{{ url("@/writing.md") }}">writing.md</a>
+    <a href="{{ url("@/about.md") }}">about.md</a>
     <a href="{{ url("atom.xml") }}">atom.xml</a>
   </p>
 
-  <p class="cmd"><span class="ps">josip@seketa:~$</span> cat about.txt</p>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> cat info.md</p>
   <div class="out cat">{{ section.content }}</div>
 
-  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls projects/</p>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -d */</p>
   <div class="out kv">
-    {% for p in projects.pages %}
-    <a href="{{ p.url }}">{{ p.extra.slug }}/</a> <span class="dim">{{ p.description or "" }}</span>
+    {% for p in site.projects %}
+    <a href="{{ p.url }}">{{ p.name }}/</a> <span class="dim">{{ p.description or "" }}</span>
     {% end %}
   </div>
 
-  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t writing/ | head -{{ len(latest) }}</p>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t */*.md | head -{{ len(latest) }}</p>
   <div class="out ls">
     {% for p in latest %}{% include "_post_row.html" post = p %}{% end %}
   </div>

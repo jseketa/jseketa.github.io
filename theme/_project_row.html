@@ -1,5 +1,0 @@
-<dt><a href="{{ project.url }}">{{ project.extra.slug }}</a> <span class="dim">{{ project.title }}</span></dt>
-<dd>
-  {{ project.description or "" }}
-  <span class="meta">{% if project.extra.status %}{{ lower(project.extra.status) }} &middot; {% end %}{% if project.extra.year %}{{ project.extra.year }} &middot; {% end %}{{ len(project.posts) }} {{ plural(len(project.posts), "post") }}</span>
-</dd>

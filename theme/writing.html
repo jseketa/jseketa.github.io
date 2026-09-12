@@ -1,15 +1,16 @@
-{% extend "base.html" title = "Writing - " + config.title, description = "Build logs and notes." %}
+{% extend "base.html" title = page.title + " - " + config.title, description = page.description or config.description %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/_index.md") }}">~</a>/writing</span>
+    <span><a href="{{ url("@/info.md") }}">~</a>/{{ page.file }}</span>
     <span>{{ config.title }}</span>
     <span></span>
   </div>
 
-  <h1>Writing</h1>
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}<p class="lede">{{ page.description }}</p>{% end %}
 
-  {% if section.pages %}
-    {% for g in section.years %}
+  {% if site.posts %}
+    {% for g in site.years %}
     <div class="sec">{{ g.year }}</div>
     <div class="body">
       <div class="ls">{% for p in g.pages %}{% include "_post_row.html" post = p %}{% end %}</div>
@@ -23,6 +24,6 @@
   <div class="ftr">
     <span>seketa.it</span>
     <span></span>
-    <span><a href="{{ url("@/_index.md") }}">~</a></span>
+    <span><a href="{{ url("@/info.md") }}">~</a></span>
   </div>
 </main>

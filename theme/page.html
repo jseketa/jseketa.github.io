@@ -1,7 +1,7 @@
 {% extend "base.html" title = page.title + " - " + config.title, description = page.description or config.description %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/_index.md") }}">~</a>{{ page.url }}</span>
+    <span><a href="{{ url("@/info.md") }}">~</a>/{{ page.file }}</span>
     <span>{{ config.title }}</span>
     <span></span>
   </div>
@@ -15,6 +15,6 @@
   <div class="ftr">
     <span>seketa.it</span>
     <span></span>
-    <span><a href="{{ url("@/_index.md") }}">~</a></span>
+    <span><a href="{{ url("@/info.md") }}">~</a></span>
   </div>
 </main>
