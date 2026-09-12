@@ -52,10 +52,10 @@ Drawn out, one whole read looks like this:
 
 ```wave caption="A read transaction. The two z regions are the turnarounds: neither end is driving, which is what makes a single-wire bidirectional bus possible."
 { "signal": [
-  { "name": "SWCLK",     "wave": "P...............|......" },
-  { "name": "SWDIO",     "wave": "03.......z4..5..|..6z0.", "data": ["8-bit request", "3-bit ACK", "32-bit data", "parity"] },
+  { "name": "SWCLK",     "wave": "P.............|..........." },
+  { "name": "SWDIO",     "wave": "03.......z4..5|.......6z0.", "data": ["8-bit request", "3-bit ACK", "32-bit data", "parity"] },
   {},
-  { "name": "driven by", "wave": "5........z6.....|...z5.", "data": ["host", "target", "host"] }
+  { "name": "driven by", "wave": "5........z6...|........z5.", "data": ["host", "target", "host"] }
 ]}
 ```
 
