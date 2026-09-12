@@ -363,9 +363,6 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 
 .also p { margin: 0 0 .3rem; font-family: var(--mono); font-size: 14px; }
 
-.kv--facts { margin-bottom: 1.4rem; }
-.kv--facts dt { color: var(--dim); }
-.kv--facts dd { margin: 0; }
 
 // Projects index: name, then description hanging under it.
 .projects { margin: 0; }
@@ -811,7 +808,6 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 
   .kv { grid-template-columns: 1fr; gap: 0; }
   .kv a { margin-top: .5rem; }
-  .kv--facts { grid-template-columns: 8ch 1fr; gap: 2px 12px; }
   .ls { grid-template-columns: 1fr; gap: 0; }
   .ls .d { margin-top: .4rem; }
   .hdr, .ftr { flex-wrap: wrap; }
