@@ -897,9 +897,16 @@ body.presenting .slide.current .diagram figcaption { margin-left: 0; text-align:
 body.presenting .present-rail,
 body.presenting .present-count { display: block; }
 
-// The presenter's blank button: nothing on the stage but the ground.
-body.presenting.blanked .slide.current,
-body.presenting.blanked .topbar,
+// The presenter's blank button: a sheet of the ground over everything.
+// (Hiding the slide itself leaves WaveDrom's <use>-cloned fills showing.)
+body.presenting.blanked::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
 body.presenting.blanked .present-rail,
 body.presenting.blanked .present-count { visibility: hidden; }
 
