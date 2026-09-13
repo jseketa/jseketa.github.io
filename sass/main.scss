@@ -882,6 +882,29 @@ body.presenting .slide.current > table { margin-left: auto; margin-right: auto; 
 // The section a sub-slide belongs to, as a label above its heading;
 // present.js adds it, and it is nothing while reading.
 .slide__section { display: none; }
+
+// Slide markers while reading: the number and a hairline down the slide's
+// extent, out in the margin past the hang. Gone while presenting and on
+// narrow screens, where nothing hangs.
+.slide { position: relative; }
+.slide-mark {
+  position: absolute;
+  top: .35em;
+  left: calc(-1 * var(--hang) - 2.2rem);
+  bottom: .35em;
+  width: 1.4rem;
+  border-left: 1px solid var(--rule);
+  padding-left: .4rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--dim);
+  text-decoration: none;
+}
+// The title slide is not inside the hanging body, so its marker hangs less.
+.slide--title .slide-mark { left: -2.2rem; }
+.slide-mark:hover { color: var(--accent); border-left-color: var(--accent); }
+body.presenting .slide-mark { display: none; }
 body.presenting .slide.current .slide__section {
   display: block;
   font: 500 .55em var(--mono);
@@ -974,6 +997,7 @@ body.presenting.blanked .present-count { visibility: hidden; }
 
 @media (max-width: 700px) {
   :root { --hang: 0rem; }
+  .slide-mark { display: none; }
 
   // No corner to sit in: the picker becomes a line of its own.
   .topbar { height: auto; }

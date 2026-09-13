@@ -48,6 +48,20 @@
   groups.forEach(function (g) { wrap(g); });
 
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+
+  // While reading, each slide is marked in the margin: its number, and a
+  // hairline down its extent, so the author sees what lands on which slide.
+  // A click on the number presents from there.
+  slides.forEach(function (s, k) {
+    var mark = document.createElement('a');
+    mark.className = 'slide-mark';
+    mark.href = '#slide-' + (k + 1);
+    mark.textContent = k + 1;
+    mark.title = 'slide ' + (k + 1) + ' of ' + slides.length + ' - present from here';
+    mark.addEventListener('click', function (e) { e.preventDefault(); index = k; start(); });
+    s.insertBefore(mark, s.firstChild);
+  });
+
   var rail = document.createElement('div');
   rail.className = 'present-rail';
   var count = document.createElement('div');
