@@ -77,6 +77,15 @@
   --code-fn:   #1d1912;
   --code-const:#4a6a8a;
   --code-pre:  #5f5546;
+
+  // Five chart colours, distinct within the palette, and the one label
+  // colour that reads on all of them.
+  --chart-1:   #b4501a;
+  --chart-2:   #4a6a8a;
+  --chart-3:   #7a5a17;
+  --chart-4:   #8a7a5e;
+  --chart-5:   #1d1912;
+  --chart-fg:  #f8f3ea;
 }
 
 // Cool datasheet white with a blue accent.
@@ -101,6 +110,15 @@
   --code-fn:   #1b1c1e;
   --code-const:#8a3a6e;
   --code-pre:  #4f5257;
+
+  // Five chart colours, distinct within the palette, and the one label
+  // colour that reads on all of them.
+  --chart-1:   #1f5fa8;
+  --chart-2:   #7a3e10;
+  --chart-3:   #8a3a6e;
+  --chart-4:   #4f5257;
+  --chart-5:   #1b1c1e;
+  --chart-fg:  #ffffff;
 }
 
 // Amber phosphor on warm black.
@@ -125,6 +143,15 @@
   --code-fn:   #e6a04a;
   --code-const:#f0c98a;
   --code-pre:  #b98a4a;
+
+  // Five chart colours, distinct within the palette, and the one label
+  // colour that reads on all of them.
+  --chart-1:   #f6d9a8;
+  --chart-2:   #e6a04a;
+  --chart-3:   #d9772a;
+  --chart-4:   #b98a4a;
+  --chart-5:   #9a7a4c;
+  --chart-fg:  #15110b;
 }
 
 // P1 green phosphor; the ground goes slightly cool to match.
@@ -149,6 +176,15 @@
   --code-fn:   #7fd48a;
   --code-const:#d8f0a8;
   --code-pre:  #6fb079;
+
+  // Five chart colours, distinct within the palette, and the one label
+  // colour that reads on all of them.
+  --chart-1:   #c4f2c8;
+  --chart-2:   #7fd48a;
+  --chart-3:   #b9e08a;
+  --chart-4:   #6fb079;
+  --chart-5:   #4f8a58;
+  --chart-fg:  #0c120e;
 }
 
 // P4 white phosphor on charcoal: monochrome, so code is shaded, not coloured.
@@ -173,6 +209,15 @@
   --code-fn:   #d6d8da;
   --code-const:#e6e8ea;
   --code-pre:  #a9adb3;
+
+  // Five chart colours, distinct within the palette, and the one label
+  // colour that reads on all of them.
+  --chart-1:   #ffffff;
+  --chart-2:   #d0d3d6;
+  --chart-3:   #a9adb3;
+  --chart-4:   #8b9097;
+  --chart-5:   #6d737a;
+  --chart-fg:  #111214;
 }
 
 :root {

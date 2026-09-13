@@ -29,8 +29,8 @@
     var mid = cssVar('--mid', '#5b5044');
     var rule = cssVar('--rule', '#cfc0a4');
     var bg = cssVar('--bg', '#eee7dc');
-    var accent2 = cssVar('--accent-2', '#dd9b1f');
-    var dim = cssVar('--dim', '#8a7a5e');
+    var chart = [1, 2, 3, 4, 5].map(function (k) { return cssVar('--chart-' + k, accent); });
+    var chartFg = cssVar('--chart-fg', onAccent);
 
     return {
       background: bg,
@@ -99,22 +99,22 @@
       attributeBackgroundColorEven: bg,
       // git: branch colours otherwise come from a lightness ramp that ends
       // in black
-      git0: accent,
-      git1: accent2,
-      git2: ink,
-      git3: dim,
-      git4: mid,
-      git5: accent,
-      git6: accent2,
-      git7: ink,
-      gitBranchLabel0: onAccent,
-      gitBranchLabel1: onAccent,
-      gitBranchLabel2: onAccent,
-      gitBranchLabel3: onAccent,
-      gitBranchLabel4: onAccent,
-      gitBranchLabel5: onAccent,
-      gitBranchLabel6: onAccent,
-      gitBranchLabel7: onAccent,
+      git0: chart[0],
+      git1: chart[1],
+      git2: chart[2],
+      git3: chart[3],
+      git4: chart[4],
+      git5: chart[0],
+      git6: chart[1],
+      git7: chart[2],
+      gitBranchLabel0: chartFg,
+      gitBranchLabel1: chartFg,
+      gitBranchLabel2: chartFg,
+      gitBranchLabel3: chartFg,
+      gitBranchLabel4: chartFg,
+      gitBranchLabel5: chartFg,
+      gitBranchLabel6: chartFg,
+      gitBranchLabel7: chartFg,
       gitInv0: bg,
       gitInv1: bg,
       gitInv2: bg,
@@ -124,14 +124,14 @@
       tagLabelColor: ink,
       tagLabelBackground: surf,
       tagLabelBorder: rule,
-      // pie: every slice is a colour the on-accent text reads on
-      pie1: accent,
-      pie2: ink,
-      pie3: accent2,
-      pie4: dim,
-      pie5: mid,
+      // pie: the palette's chart colours and the label colour they carry
+      pie1: chart[0],
+      pie2: chart[1],
+      pie3: chart[2],
+      pie4: chart[3],
+      pie5: chart[4],
       pieTitleTextColor: ink,
-      pieSectionTextColor: onAccent,
+      pieSectionTextColor: chartFg,
       pieLegendTextColor: ink,
       pieStrokeColor: bg,
       pieOuterStrokeColor: rule
