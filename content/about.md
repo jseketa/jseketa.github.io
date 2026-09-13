@@ -1,5 +1,6 @@
 +++
 title = "About"
+description = "Who is writing this."
 path = "about"
 template = "page.html"
 +++

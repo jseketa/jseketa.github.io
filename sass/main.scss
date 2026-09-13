@@ -277,10 +277,8 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 .session .cmd:first-child { margin-top: 0; }
 .session .ps { color: var(--accent); font-weight: 600; }
 .session .out { margin: 0; }
-.session .nav a { margin-right: 14px; }
-// Directories the way a coloured ls shows them: bold, in the second accent,
-// on their own line before the files.
-.session .nav .dir { color: var(--accent-2); font-weight: 600; }
+// Directories the way a coloured ls shows them: bold, in the second accent.
+.session .dir { color: var(--accent-2); font-weight: 600; }
 
 // The bio comes out of Markdown as paragraphs; in a transcript they are
 // plain output.

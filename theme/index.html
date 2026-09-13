@@ -2,24 +2,20 @@
 {% let latest = take(site.posts, 5) %}
 <main class="wrap session">
 
-  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls</p>
-  <p class="out nav">
-    {% for p in site.projects %}<a class="dir" href="{{ p.url }}">{{ p.name }}/</a> {% end %}
-    <a class="dir" href="{{ site.sections.unsorted.url }}">unsorted/</a>
-    <br>
-    <a href="{{ url("@/writing.md") }}">writing.md</a>
-    <a href="{{ url("@/about.md") }}">about.md</a>
-    <a href="{{ url("atom.xml") }}">atom.xml</a>
-  </p>
-
   <p class="cmd"><span class="ps">josip@seketa:~$</span> cat info.md</p>
   <div class="out cat">{{ section.content }}</div>
 
-  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -d */</p>
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -l</p>
   <div class="out kv">
     {% for p in site.projects %}
-    <a href="{{ p.url }}">{{ p.name }}/</a> <span class="dim">{{ p.description or "" }}</span>
+    <a class="dir" href="{{ p.url }}">{{ p.name }}/</a> <span class="dim">{{ p.description or "" }}</span>
     {% end %}
+    {% let unsorted = site.sections.unsorted %}
+    <a class="dir" href="{{ unsorted.url }}">unsorted/</a> <span class="dim">{{ unsorted.description or "" }}</span>
+    {% for p in section.pages %}
+    <a href="{{ p.url }}">{{ p.name }}</a> <span class="dim">{{ p.description or "" }}</span>
+    {% end %}
+    <a href="{{ url("atom.xml") }}">atom.xml</a> <span class="dim">The feed.</span>
   </div>
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t */*.md | head -{{ len(latest) }}</p>
