@@ -9,3 +9,5 @@ tags = ["usb", "architecture"]
 +++
 ## Introduction
 Why the fuck did I need this and what it brought upon me?
+
+## Problem statement

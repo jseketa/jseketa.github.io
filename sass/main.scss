@@ -638,6 +638,10 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   }
 }
 
+// A photo is a figure like a diagram: centred, captioned, and a cutout
+// (transparent background) so it sits on every theme.
+.prose .photo img { margin: 0 auto; }
+
 // Mermaid replaces the <pre> with an <svg> once it runs; until then, and
 // forever without JavaScript, the source shows as a quiet block.
 .prose .diagram pre.mermaid {
