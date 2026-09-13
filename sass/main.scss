@@ -451,7 +451,7 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   font-family: var(--mono);
   font-size: 13.5px;
   font-variant-numeric: tabular-nums;
-  margin: .4rem 0 1.1rem;
+  margin: .4rem auto 1.1rem; // centred in the text column
 }
 
 .prose th {
@@ -468,7 +468,7 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   vertical-align: top;
 }
 
-.table-scroll { overflow-x: auto; margin: 0 0 1.1rem; }
+.table-scroll { overflow-x: auto; margin: 0 0 1.1rem; display: flex; justify-content: center; }
 .table-scroll table { margin-bottom: 0; }
 
 // Code slabs and everything wide step back out to the margin, so the prose
@@ -566,11 +566,12 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 // ---------------------------------------------------------------------------
 // Diagrams. The SVGs are colourless; every stroke and fill comes from these
 // rules, so a diagram follows the palette and the toggle without being
-// redrawn. Diagrams step back out to the margin like code does.
+// redrawn. Diagrams overhang the text by the hang on both sides, so a wide
+// one gets the width code gets and a narrow one centres on the text.
 // ---------------------------------------------------------------------------
 
 .diagram {
-  margin: 1.2rem 0 1.4rem calc(-1 * var(--hang));
+  margin: 1.2rem calc(-1 * var(--hang)) 1.4rem;
   text-align: center;
 
   svg {
@@ -890,9 +891,9 @@ body.presenting .slide.current .code__bar { font-size: .7em; }
 body.presenting .slide.current .code, body.presenting .slide.current pre { margin-top: .4em; margin-bottom: .4em; }
 // Diagrams grow to the text width on a slide: every SVG press emits
 // carries a viewBox, so lines and labels scale together.
-body.presenting .slide.current .diagram { text-align: left; }
-body.presenting .slide.current .diagram svg { margin: 0; width: 100%; max-width: 1400px; height: auto; }
-body.presenting .slide.current .diagram figcaption { margin-left: 0; text-align: left; font-size: .6em; max-width: none; }
+body.presenting .slide.current .diagram { text-align: center; }
+body.presenting .slide.current .diagram svg { margin: 0 auto; width: 100%; max-width: 1400px; height: auto; }
+body.presenting .slide.current .diagram figcaption { font-size: .6em; max-width: none; }
 
 .present-rail {
   position: fixed;
