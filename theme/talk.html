@@ -1,0 +1,18 @@
+{% extend "base.html" title = page.title, description = page.description or page.title %}
+{# A talk: one Markdown file rendered on its own by `press present` and
+   folded into a single self-contained HTML file. It reads like a post and
+   always presents: F5 starts it. #}
+<main class="wrap man">
+  <div class="hdr">
+    <span>~/{{ page.name }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %} &middot; <span class="present" title="F5 presents this talk as slides: arrows or a clicker to move, Esc to leave"><svg viewBox="0 0 10 10" aria-label="presentable"><path d="M2.5 1.5l6 3.5-6 3.5z"/></svg></span></span>
+  </div>
+
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}<p class="lede">{{ page.description }}</p>{% end %}
+
+  <article class="body prose">
+    {{ page.content }}
+  </article>
+
+  <script src="{{ url("js/present.js") }}" defer></script>
+</main>
