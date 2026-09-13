@@ -846,6 +846,9 @@ body.presenting .slide.current {
 // squashing whichever child has its own scroll box (the table wrapper).
 body.presenting .slide.current > * { max-width: 90ch; flex-shrink: 0; }
 body.presenting .slide.current table { font-size: .72em; }
+// A table on a slide sits centred, not hugging the text's left edge.
+body.presenting .slide.current > .table-scroll { display: flex; justify-content: center; }
+body.presenting .slide.current > table { margin-left: auto; margin-right: auto; }
 
 // The section a sub-slide belongs to, as a label above its heading;
 // present.js adds it, and it is nothing while reading.
