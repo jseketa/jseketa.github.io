@@ -178,7 +178,17 @@
     });
   }
 
-  render();
+  // Mermaid sizes each label's box by measuring its text, so the label font
+  // has to be loaded first: measured in a fallback font, the boxes come out
+  // narrower than the labels and cut them off. A talk opened straight into
+  // presentation mode shows one slide, so nothing has asked for the font
+  // yet and document.fonts.ready would not wait; the font is asked for here.
+  var family = cssVar('--body', 'system-ui, sans-serif');
+  if (document.fonts && document.fonts.load) {
+    Promise.all([document.fonts.load('16px ' + family), document.fonts.load('600 16px ' + family)]).then(render, render);
+  } else {
+    render();
+  }
 
   // The toggle writes data-theme on <html>; watching the attribute keeps this
   // independent of theme.js rather than wiring the two together.
