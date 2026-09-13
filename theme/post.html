@@ -1,11 +1,8 @@
 {% extend "base.html" title = page.title + " - " + config.title, description = page.description or config.description %}
 {% let folder = page.section %}
-{% let owner = page.project %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/info.md") }}">~</a>/{{ page.file }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}{% if page.extra.present %} &middot; <span class="present" title="F5 presents this article as slides: arrows or a clicker to move, Esc to leave"><svg viewBox="0 0 10 10" aria-label="presentable"><path d="M2.5 1.5l6 3.5-6 3.5z"/></svg></span>{% end %}</span>
-    <span>{{ config.title }}</span>
-    <span></span>
+    <span><a href="{{ url("@/info.md") }}">~</a>/<a href="{{ folder.url }}">{{ folder.name }}</a>/{{ page.name }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}{% if page.extra.present %} &middot; <span class="present" title="F5 presents this article as slides: arrows or a clicker to move, Esc to leave"><svg viewBox="0 0 10 10" aria-label="presentable"><path d="M2.5 1.5l6 3.5-6 3.5z"/></svg></span>{% end %}</span>
   </div>
 
   <h1>{{ page.title }}</h1>
@@ -25,9 +22,9 @@
   </div>
   {% end %}
 
+  {% if page.tags %}
   <div class="ftr">
-    <span>{% if owner %}<a href="{{ owner.url }}">{{ owner.name }}</a>{% else %}seketa.it{% end %}</span>
     <span>{% for i, t in page.tags %}{% if i %}, {% end %}<a href="{{ t.url }}">{{ t.name }}</a>{% end %}</span>
-    <span><a href="{{ folder.url }}">~/{{ folder.name }}/</a></span>
   </div>
+  {% end %}
 </main>
