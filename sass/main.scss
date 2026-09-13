@@ -322,9 +322,19 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 
 .hdr a, .ftr a { color: var(--dim); }
 
-// The marker that a post is also a talk: |> in the accent, in the header
-// line. Not a link; F5 presents, the tooltip says so.
-.hdr .present { color: var(--accent); cursor: help; }
+// The marker that a post is also a talk: an outline triangle in the accent,
+// in the header line. Inline SVG because Plex has no such glyph. Not a
+// link; F5 presents, the tooltip says so.
+.hdr .present { cursor: help; }
+.hdr .present svg {
+  width: .85em;
+  height: .85em;
+  vertical-align: -.05em;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
 .hdr a:hover, .ftr a:hover { color: var(--hi); }
 
 .ftr {
