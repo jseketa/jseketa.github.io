@@ -170,11 +170,23 @@
   if (n) index = n - 1;
   if (location.search.indexOf('present') !== -1 || n) start();
 
-  audit();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(audit);
+  // The check runs once now, and again whenever the answer can change:
+  // every photo that finishes loading (its width and height attributes only
+  // hold a place until then), a font arriving, the window resized, and any
+  // other change in the article's size, such as a diagram drawn by its
+  // script. The check's own class changes are undone before the browser
+  // lays out again, so they never count as a change.
   var pending = null;
-  window.addEventListener('resize', function () {
+  function later() {
     clearTimeout(pending);
-    pending = setTimeout(audit, 200);
+    pending = setTimeout(audit, 150);
+  }
+  audit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  window.addEventListener('resize', later);
+  window.addEventListener('load', later);
+  Array.prototype.forEach.call(prose.querySelectorAll('img'), function (img) {
+    img.addEventListener('load', later);
   });
+  if (window.ResizeObserver) new ResizeObserver(later).observe(prose);
 })();
