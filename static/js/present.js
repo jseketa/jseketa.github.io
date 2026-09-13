@@ -62,17 +62,23 @@
     s.insertBefore(mark, s.firstChild);
   });
 
-  // Which slides would scroll at this window size: each is laid out as if
+  // Which slides would scroll when presented: each is laid out as if
   // presenting, between two frames so nothing paints, and measured. The
+  // presentation is full screen, so the slide is given the screen's height
+  // rather than the window's, which loses the browser's own bars. The
   // marker of one that overflows goes to the accent and says by how much.
-  // Rerun when the window changes, since the answer depends on it.
+  // Rerun when the window changes, since the width sets the type size.
   function audit() {
     if (presenting) return;
     var x = window.scrollX, y = window.scrollY;
     document.body.classList.add('presenting');
     slides.forEach(function (s) {
       s.classList.add('current');
+      s.style.bottom = 'auto';
+      s.style.height = Math.max(screen.height, window.innerHeight) + 'px';
       var over = s.scrollHeight - s.clientHeight;
+      s.style.bottom = '';
+      s.style.height = '';
       s.classList.remove('current');
       var mark = s.firstChild;
       mark.classList.toggle('slide-mark--over', over > 0);
