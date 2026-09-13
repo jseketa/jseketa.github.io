@@ -1,9 +1,7 @@
 {% extend "base.html" title = term.name + " - " + config.title, description = "Posts tagged " + term.name + "." %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/info.md") }}">~</a>/tags/{{ term.name }}</span>
-    <span>{{ config.title }}</span>
-    <span></span>
+    <span><a href="{{ url("@/info.md") }}">~</a>/<a href="{{ url("tags/") }}">tags</a>/{{ term.name }}</span>
   </div>
 
   <h1>{{ term.name }}</h1>
@@ -12,9 +10,4 @@
     <div class="ls">{% for p in term.pages %}{% include "_post_row.html" post = p %}{% end %}</div>
   </div>
 
-  <div class="ftr">
-    <span>seketa.it</span>
-    <span></span>
-    <span><a href="{{ url("tags/") }}">~/tags</a></span>
-  </div>
 </main>

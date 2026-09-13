@@ -2,8 +2,6 @@
 <main class="wrap man">
   <div class="hdr">
     <span><a href="{{ url("@/info.md") }}">~</a>/tags</span>
-    <span>{{ config.title }}</span>
-    <span></span>
   </div>
 
   <h1>Tags</h1>
@@ -17,9 +15,6 @@
     {% else %}<p class="dim">No tags yet.</p>{% end %}
   </div>
 
-  <div class="ftr">
-    <span>seketa.it</span>
-    <span></span>
-    <span><a href="{{ url("@/writing.md") }}">~/writing.md</a></span>
-  </div>
+  <div class="sec">SEE ALSO</div>
+  <div class="body also"><p><a href="{{ url("@/writing.md") }}">~/writing.md</a> <span class="dim">the same posts, by year</span></p></div>
 </main>

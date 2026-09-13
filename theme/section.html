@@ -2,8 +2,6 @@
 <main class="wrap man">
   <div class="hdr">
     <span><a href="{{ url("@/info.md") }}">~</a>/{{ section.name }}/{% if section.extra.year %} &middot; {{ section.extra.year }}{% end %}{% if section.extra.status %} &middot; {{ lower(section.extra.status) }}{% end %}</span>
-    <span>{{ config.title }}</span>
-    <span></span>
   </div>
 
   <h1>{{ section.title }}</h1>
@@ -32,9 +30,4 @@
   <div class="body also"><p><a href="{{ section.extra.repo }}" rel="noopener">{{ section.extra.repo }}</a> <span class="dim">the source</span></p></div>
   {% end %}
 
-  <div class="ftr">
-    <span>seketa.it</span>
-    <span>{{ section.name }}</span>
-    <span><a href="{{ url("@/info.md") }}">~</a></span>
-  </div>
 </main>
