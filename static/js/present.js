@@ -72,13 +72,22 @@
     if (presenting) return;
     var x = window.scrollX, y = window.scrollY;
     document.body.classList.add('presenting');
+    // The slide's vertical padding is 5vh clamped to 1.5rem..4rem; vh is the
+    // window's, so it is worked out for the screen here as well.
+    var h = Math.max(screen.height, window.innerHeight);
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var pad = Math.min(Math.max(1.5 * rem, 0.05 * h), 4 * rem) + 'px';
     slides.forEach(function (s) {
       s.classList.add('current');
       s.style.bottom = 'auto';
-      s.style.height = Math.max(screen.height, window.innerHeight) + 'px';
+      s.style.height = h + 'px';
+      s.style.paddingTop = pad;
+      s.style.paddingBottom = pad;
       var over = s.scrollHeight - s.clientHeight;
       s.style.bottom = '';
       s.style.height = '';
+      s.style.paddingTop = '';
+      s.style.paddingBottom = '';
       s.classList.remove('current');
       var mark = s.firstChild;
       mark.classList.toggle('slide-mark--over', over > 0);
