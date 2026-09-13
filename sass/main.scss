@@ -616,6 +616,11 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   padding: .8rem 1rem;
 }
 
+// Mermaid 11 paints ER attribute rows with inline fills it derives from the
+// primary colour, light in every palette; a declaration outranks them.
+.diagram .row-rect-odd > path:first-child { fill: var(--surf); }
+.diagram .row-rect-even > path:first-child { fill: var(--bg); }
+
 // Graphviz bakes fill and stroke in as presentation attributes, which any
 // css declaration outranks.
 .diagram--dot {
