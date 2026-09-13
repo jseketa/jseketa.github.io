@@ -88,10 +88,6 @@
     history.replaceState(null, '', location.pathname);
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll('[data-present]'), function (a) {
-    a.addEventListener('click', function (e) { e.preventDefault(); start(); });
-  });
-
   // The blank button: the stage goes to the theme's ground until the next
   // key. Any slide change unblanks.
   function blank(on) { document.body.classList.toggle('blanked', on); }

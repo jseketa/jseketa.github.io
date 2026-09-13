@@ -3,7 +3,7 @@
 {% let owner = page.project %}
 <main class="wrap man">
   <div class="hdr">
-    <span><a href="{{ url("@/info.md") }}">~</a>/{{ page.file }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}{% if page.extra.present %} &middot; <a class="present" href="?present" data-present title="Present this article as slides: arrows or a clicker to move, Esc to leave">present</a>{% end %}</span>
+    <span><a href="{{ url("@/info.md") }}">~</a>/{{ page.file }}{% if page.date %} &middot; {{ date(page.date, "%Y-%m-%d") }}{% end %}{% if page.extra.present %} &middot; <span class="present" title="F5 presents this article as slides: arrows or a clicker to move, Esc to leave">|&gt;</span>{% end %}</span>
     <span>{{ config.title }}</span>
     <span></span>
   </div>
