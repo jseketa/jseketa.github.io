@@ -1,6 +1,6 @@
 +++
 title = "OGame Scraper"
-weight = 2
+weight = 3
 description = "Reverse-engineering a browser game's login flow and wrapping it in small Node.js services - auth tokens, cookie jars, and a universe lookup API."
 
 [extra]

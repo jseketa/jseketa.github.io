@@ -1,6 +1,6 @@
 +++
 title = "Learning Go"
-weight = 1
+weight = 2
 description = "An open notebook on Go - syntax, standard library, and the idioms that only make sense once you've written something real."
 
 [extra]
