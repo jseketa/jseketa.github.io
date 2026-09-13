@@ -502,7 +502,7 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   border-bottom: 1px solid var(--hair);
   background: var(--code);
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13.5px; // the code's size, so the file name never looks smaller than the code
   color: var(--code-dim);
 }
 
@@ -883,6 +883,7 @@ body.presenting .slide.current h3 {
 }
 
 body.presenting .slide.current pre { font-size: .7em; line-height: 1.45; }
+body.presenting .slide.current .code__bar { font-size: .7em; }
 body.presenting .slide.current .code, body.presenting .slide.current pre { margin-top: .4em; margin-bottom: .4em; }
 // Diagrams grow to the text width on a slide: every SVG press emits
 // carries a viewBox, so lines and labels scale together.
