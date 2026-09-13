@@ -4,8 +4,9 @@
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls</p>
   <p class="out nav">
-    {% for p in site.projects %}<a href="{{ p.url }}">{{ p.name }}/</a> {% end %}
-    <a href="{{ site.sections.unsorted.url }}">unsorted/</a>
+    {% for p in site.projects %}<a class="dir" href="{{ p.url }}">{{ p.name }}/</a> {% end %}
+    <a class="dir" href="{{ site.sections.unsorted.url }}">unsorted/</a>
+    <br>
     <a href="{{ url("@/writing.md") }}">writing.md</a>
     <a href="{{ url("@/about.md") }}">about.md</a>
     <a href="{{ url("atom.xml") }}">atom.xml</a>
