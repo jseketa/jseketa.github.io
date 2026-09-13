@@ -849,7 +849,8 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 // ---------------------------------------------------------------------------
 
 body.presenting { overflow: hidden; }
-body.presenting .topbar { z-index: 2; }
+// The theme picker is gone while presenting; t and shift+t still switch.
+body.presenting .topbar { display: none; }
 body.presenting .man > :not(.body):not(.slide--title) { display: none; }
 body.presenting .man > .body:not(.prose) { display: none; }
 body.presenting .man { padding: 0; }
