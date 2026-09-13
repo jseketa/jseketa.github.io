@@ -15,7 +15,6 @@
     {% for p in section.pages %}
     <a href="{{ p.url }}">{{ p.name }}</a> <span class="dim">{{ p.description or "" }}</span>
     {% end %}
-    <a href="{{ url("atom.xml") }}">atom.xml</a> <span class="dim">The feed.</span>
   </div>
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t */*.md | head -{{ len(latest) }}</p>
