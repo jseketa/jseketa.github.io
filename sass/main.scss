@@ -904,6 +904,8 @@ body.presenting .slide.current > table { margin-left: auto; margin-right: auto; 
 // The title slide is not inside the hanging body, so its marker hangs less.
 .slide--title .slide-mark { left: -2.2rem; }
 .slide-mark:hover { color: var(--accent); border-left-color: var(--accent); }
+// A slide that would scroll at this window size.
+.slide-mark--over { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 body.presenting .slide-mark { display: none; }
 body.presenting .slide.current .slide__section {
   display: block;

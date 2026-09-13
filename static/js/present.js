@@ -62,6 +62,27 @@
     s.insertBefore(mark, s.firstChild);
   });
 
+  // Which slides would scroll at this window size: each is laid out as if
+  // presenting, between two frames so nothing paints, and measured. The
+  // marker of one that overflows goes to the accent and says by how much.
+  // Rerun when the window changes, since the answer depends on it.
+  function audit() {
+    if (presenting) return;
+    var x = window.scrollX, y = window.scrollY;
+    document.body.classList.add('presenting');
+    slides.forEach(function (s) {
+      s.classList.add('current');
+      var over = s.scrollHeight - s.clientHeight;
+      s.classList.remove('current');
+      var mark = s.firstChild;
+      mark.classList.toggle('slide-mark--over', over > 0);
+      mark.title = 'slide ' + mark.textContent + ' of ' + slides.length +
+        (over > 0 ? ' - overflows the screen by ' + over + 'px' : '') + ' - present from here';
+    });
+    document.body.classList.remove('presenting');
+    window.scrollTo(x, y);
+  }
+
   var rail = document.createElement('div');
   rail.className = 'present-rail';
   var count = document.createElement('div');
@@ -100,6 +121,7 @@
     if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
     if (wake) { wake.release(); wake = null; }
     history.replaceState(null, '', location.pathname);
+    audit();
   }
 
   // The blank button: the stage goes to the theme's ground until the next
@@ -132,4 +154,12 @@
   var n = parseInt((location.hash.match(/slide-(\d+)/) || [])[1], 10);
   if (n) index = n - 1;
   if (location.search.indexOf('present') !== -1 || n) start();
+
+  audit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(audit);
+  var pending = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(pending);
+    pending = setTimeout(audit, 200);
+  });
 })();
