@@ -8,7 +8,6 @@ description = "What the two wires between the J-Link and the blue pill are actua
 tags = ["embedded", "stm32", "swd"]
 
 [extra]
-project = "stm32-bare-metal"
 present = true
 +++
 

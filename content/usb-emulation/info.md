@@ -4,7 +4,6 @@ weight = 1
 description = "Emulating USB devices for automated testing of the Device Under Test."
 
 [extra]
-slug = "usb-emulation"
 year = "2026"
 status = "Active"
 stack = ["C", "C++", "Python", "ARM", "ld", "SWD"]

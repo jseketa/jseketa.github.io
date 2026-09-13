@@ -6,9 +6,6 @@ description = "Documenting the microservice for listing the existing universes."
 
 [taxonomies]
 tags = ["nodejs", "microservices"]
-
-[extra]
-project = "ogame-scraper"
 +++
 Checking if the universe exists with test cases and code coverage.
 

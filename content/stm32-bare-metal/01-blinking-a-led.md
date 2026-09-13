@@ -6,9 +6,6 @@ description = "Setting up the necessary tools, writing a simple program to blink
 
 [taxonomies]
 tags = ["embedded", "stm32", "c"]
-
-[extra]
-project = "stm32-bare-metal"
 +++
 ## Introduction
 After some time sifting through code and making/breaking things, I decided to put stuff in writing.

@@ -6,9 +6,6 @@ description = "Taking notes while learning Go."
 
 [taxonomies]
 tags = ["golang"]
-
-[extra]
-project = "learning-go"
 +++
 ## Introduction
 

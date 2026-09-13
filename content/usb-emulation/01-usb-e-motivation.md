@@ -6,9 +6,6 @@ description = "First naive baby steps."
 
 [taxonomies]
 tags = ["usb", "architecture"]
-
-[extra]
-project = "usb-emulation"
 +++
 ## Introduction
 Why the fuck did I need this and what it brought upon me?

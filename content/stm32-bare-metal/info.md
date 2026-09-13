@@ -4,7 +4,6 @@ weight = 4
 description = "Driving an STM32F103 \"blue pill\" with no HAL, no IDE, and no libraries - just C, ARM assembly, a linker script, and a Makefile."
 
 [extra]
-slug = "stm32-bare-metal"
 year = "2018"
 status = "Archived"
 stack = ["C", "ARM asm", "GNU ld", "J-Link"]

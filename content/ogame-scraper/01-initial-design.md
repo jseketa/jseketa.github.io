@@ -6,9 +6,6 @@ description = "Initial ponderings, decisions and abstractions."
 
 [taxonomies]
 tags = ["nodejs", "scraping"]
-
-[extra]
-project = "ogame-scraper"
 +++
 ![Boring writer](/assets/images/boring_writer.gif "Boring writer")
 ![Concept level](/assets/images/concept_level.gif "Concept level")

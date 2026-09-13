@@ -4,7 +4,6 @@ weight = 2
 description = "An open notebook on Go - syntax, standard library, and the idioms that only make sense once you've written something real."
 
 [extra]
-slug = "learning-go"
 year = "2022 - now"
 status = "Active"
 stack = ["Go"]
