@@ -134,7 +134,21 @@
       pieSectionTextColor: chartFg,
       pieLegendTextColor: ink,
       pieStrokeColor: bg,
-      pieOuterStrokeColor: rule
+      pieOuterStrokeColor: rule,
+      // xy charts: axes in the ink, bars in the chart colours
+      xyChart: {
+        backgroundColor: bg,
+        titleColor: ink,
+        xAxisLabelColor: ink,
+        xAxisTitleColor: mid,
+        xAxisTickColor: ink,
+        xAxisLineColor: ink,
+        yAxisLabelColor: ink,
+        yAxisTitleColor: mid,
+        yAxisTickColor: ink,
+        yAxisLineColor: ink,
+        plotColorPalette: chart.join(',')
+      }
     };
   }
 
@@ -148,7 +162,8 @@
       fontFamily: cssVar('--body', 'system-ui, sans-serif'),
       flowchart: { curve: 'basis', useMaxWidth: true },
       sequence: { useMaxWidth: true },
-      gantt: { useMaxWidth: true }
+      gantt: { useMaxWidth: true },
+      xyChart: { useMaxWidth: true, width: 700, height: 360 }
     };
   }
 

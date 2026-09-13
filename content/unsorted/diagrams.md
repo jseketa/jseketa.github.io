@@ -157,6 +157,16 @@ pie showData
     "Makefile" : 44
 ```
 
+### Bars
+
+```mermaid caption="Mermaid only. The same numbers as the pie, with the names on the axis instead of in a legend."
+xychart-beta horizontal
+    title "Code in these posts, by language"
+    x-axis [C, "ARM asm", JavaScript, JSON, Makefile]
+    y-axis "lines" 0 --> 100
+    bar [96, 34, 88, 62, 44]
+```
+
 ## What the comparison actually shows
 
 **Mermaid wins on breadth and on effort.** It has diagram types Graphviz will
