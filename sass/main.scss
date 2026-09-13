@@ -261,6 +261,9 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
   font-size: 14px;
 }
 
+// The contact rows: shorter keys than the listing.
+.kv.contact { grid-template-columns: 10ch 1fr; }
+
 // ---------------------------------------------------------------------------
 // Session - the front page is a shell transcript.
 // ---------------------------------------------------------------------------
@@ -731,28 +734,6 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 }
 
 // ---------------------------------------------------------------------------
-// Footer, on every page.
-// ---------------------------------------------------------------------------
-
-.foot {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: .5rem 1rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 2.4rem;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--dim);
-}
-
-.session + .foot { border-top: 1px solid var(--rule); }
-
-.foot a { color: var(--dim); margin-left: 12px; }
-.foot a:hover { color: var(--hi); }
-
-// ---------------------------------------------------------------------------
 // Theme picker: `[paper] snow amber green white` in the top right corner.
 // Every option is always visible and the picked one is bracketed, so it
 // reads as a setting. It is taken out of the flow and sits on the first
@@ -819,7 +800,6 @@ a:hover { color: var(--hi); text-decoration-thickness: 2px; }
 
 body.presenting { overflow: hidden; }
 body.presenting .topbar { z-index: 2; }
-body.presenting .foot,
 body.presenting .man > :not(.body):not(.slide--title) { display: none; }
 body.presenting .man > .body:not(.prose) { display: none; }
 body.presenting .man { padding: 0; }

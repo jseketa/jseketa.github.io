@@ -15,11 +15,19 @@
     {% for p in section.pages %}
     <a href="{{ p.url }}">{{ p.name }}</a> <span class="dim">{{ p.description or "" }}</span>
     {% end %}
+    <a href="{{ url("atom.xml") }}">atom.xml</a> <span class="dim">The feed.</span>
   </div>
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> ls -t */*.md | head -{{ len(latest) }}</p>
   <div class="out ls">
     {% for p in latest %}{% include "_post_row.html" post = p %}{% end %}
+  </div>
+
+  <p class="cmd"><span class="ps">josip@seketa:~$</span> cat contact</p>
+  <div class="out kv contact">
+    <span class="dim">github</span> <a href="https://github.com/{{ config.extra.github }}" rel="me noopener">github.com/{{ config.extra.github }}</a>
+    <span class="dim">linkedin</span> <a href="https://linkedin.com/in/{{ config.extra.linkedin }}" rel="me noopener">linkedin.com/in/{{ config.extra.linkedin }}</a>
+    <span class="dim">email</span> <a href="mailto:{{ config.extra.email }}">{{ config.extra.email }}</a>
   </div>
 
   <p class="cmd"><span class="ps">josip@seketa:~$</span> <span class="cur" aria-hidden="true"></span></p>

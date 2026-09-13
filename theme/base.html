@@ -41,16 +41,6 @@
 
 {% yield %}
 
-<footer class="foot wrap">
-  <span>(c) {{ year }} {{ config.title }}</span>
-  <span class="foot__links">
-    <a href="https://github.com/{{ config.extra.github }}" rel="me noopener">github</a>
-    <a href="https://linkedin.com/in/{{ config.extra.linkedin }}" rel="me noopener">linkedin</a>
-    <a href="mailto:{{ config.extra.email }}">email</a>
-    <a href="{{ url("atom.xml") }}">rss</a>
-  </span>
-</footer>
-
 <script src="{{ url("js/theme.js") }}" defer></script>
 {# Which libraries a page loads is derived from the blocks it actually
    contains, not declared in front matter - a page cannot drift out of sync
