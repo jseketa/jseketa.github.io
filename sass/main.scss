@@ -893,6 +893,10 @@ body.presenting .slide.current .code, body.presenting .slide.current pre { margi
 // carries a viewBox, so lines and labels scale together.
 body.presenting .slide.current .diagram { text-align: center; }
 body.presenting .slide.current .diagram svg { margin: 0 auto; width: 100%; max-width: 1400px; height: auto; }
+// Wide and short diagrams fill the column, so their edges are the text's;
+// capped and centred, a waveform floats off the text's left edge.
+body.presenting .slide.current .diagram--wave svg,
+body.presenting .slide.current .diagram--bytefield svg { max-width: none; }
 body.presenting .slide.current .diagram figcaption { font-size: .6em; max-width: none; }
 
 .present-rail {
